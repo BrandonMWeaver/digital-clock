@@ -54,7 +54,7 @@ header {
 
 .clock__container {
     position: relative;
-    perspective: 7500px;
+    perspective: 5750px;
     transform-style: preserve-3d;
 
     display: flex;
@@ -177,7 +177,7 @@ header {
     width: 870px;
     height: 370px;
 
-    background-image: linear-gradient(#373737 0%, #050505 75%);
+    background-image: linear-gradient(#696969 0%, #050505 75%);
 
     clip-path: polygon(30px 0, calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 30px 100%, 0 calc(100% - 30px), 0 30px);
 }
@@ -185,25 +185,25 @@ header {
 .clock__top {
     position: absolute;
     transform:
-        translateY(-184px)
-        translateZ(-50px)
+        translateY(-185px)
+        translateZ(-51px)
         rotateX(90deg);
 
     width: 810px;
     height: 100px;
 
-    background-color: #373737;
+    background-color: #696969;
 }
 
 .clock__right {
     position: absolute;
     transform:
-        translateX(434px)
+        translateX(435px)
         translateZ(-50px)
         rotateY(90deg);
 
     width: 100px;
-    height: 306px;
+    height: 305px;
 
     background-image: linear-gradient(#373737 0%, #050505 calc(75% + 15px));
 }
@@ -211,27 +211,27 @@ header {
 .clock__left {
     position: absolute;
     transform:
-        translateX(-434px)
+        translateX(-435px)
         translateZ(-50px)
         rotateY(90deg);
 
     width: 100px;
-    height: 306px;
+    height: 305px;
 
-    background-image: linear-gradient(#373737 0%, #050505 calc(75% + 15px));
+    background-image: linear-gradient(#696969 0%, #050505 calc(75% + 15px));
 }
 
 .clock__corner__right {
     position: absolute;
     transform:
-        translateX(-419px)
+        translateX(420.25px)
         translateY(-169px)
         translateZ(-50px)
-        rotateZ(45deg)
+        rotateZ(135deg)
         rotateY(90deg);
 
     width: 100px;
-    height: 45.5px;
+    height: 44px;
 
     background-color: #373737;
 }
@@ -239,16 +239,16 @@ header {
 .clock__corner__left {
     position: absolute;
     transform:
-        translateX(419px)
+        translateX(-420.25px)
         translateY(-169px)
         translateZ(-50px)
-        rotateZ(135deg)
+        rotateZ(45deg)
         rotateY(90deg);
 
     width: 100px;
-    height: 45.5px;
+    height: 44px;
 
-    background-color: #373737;
+    background-color: #9b9b9b;
 }
 
 .clock__refraction {
