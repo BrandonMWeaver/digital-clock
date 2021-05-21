@@ -85,7 +85,9 @@
             <div class="clock__left"></div>
             <div class="clock__corner__right"></div>
             <div class="clock__corner__left"></div>
-            <div class="clock__refraction"></div>
+            <div class="clock__refraction">
+                <div class="radius"></div>
+            </div>
         </div>
         <header>
             <div class="color__selector">
@@ -249,6 +251,7 @@
             }
 
             setSelectedColorSelectorButton(COLOR_SELECTOR_BUTTONS[0]);
+            CLOCK_REFRACTION.style.backgroundColor = displayColor;
             update();
             setInterval(update, 1000);
         </script>
