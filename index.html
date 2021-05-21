@@ -1,0 +1,247 @@
+<!--
+    Digital clock
+
+    Author: Brandon Michael Weaver
+    Date: May, 21, 2021
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Digital clock</title>
+        <link rel="stylesheet" href="./index.css" />
+    </head>
+    <body>
+        <div class="clock__container">
+            <div class="clock__border">
+                <div class="clock">
+                    <div class="digit__box">
+                        <div class="digit__section top"></div>
+                        <div class="digit__section top" style="top: 50%;"></div>
+                        <div class="digit__section right" style="top: 5px;"></div>
+                        <div class="digit__section right" style="bottom: 5px;"></div>
+                        <div class="digit__section bottom"></div>
+                        <div class="digit__section left" style="bottom: 5px;"></div>
+                        <div class="digit__section left" style="top: 5px;"></div>
+                    </div>
+                    <div class="digit__box">
+                        <div class="digit__section top"></div>
+                        <div class="digit__section top" style="top: 50%;"></div>
+                        <div class="digit__section right" style="top: 5px;"></div>
+                        <div class="digit__section right" style="bottom: 5px;"></div>
+                        <div class="digit__section bottom"></div>
+                        <div class="digit__section left" style="bottom: 5px;"></div>
+                        <div class="digit__section left" style="top: 5px;"></div>
+                    </div>
+                    <div class="divider">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="digit__box">
+                        <div class="digit__section top"></div>
+                        <div class="digit__section top" style="top: 50%;"></div>
+                        <div class="digit__section right" style="top: 5px;"></div>
+                        <div class="digit__section right" style="bottom: 5px;"></div>
+                        <div class="digit__section bottom"></div>
+                        <div class="digit__section left" style="bottom: 5px;"></div>
+                        <div class="digit__section left" style="top: 5px;"></div>
+                    </div>
+                    <div class="digit__box">
+                        <div class="digit__section top"></div>
+                        <div class="digit__section top" style="top: 50%;"></div>
+                        <div class="digit__section right" style="top: 5px;"></div>
+                        <div class="digit__section right" style="bottom: 5px;"></div>
+                        <div class="digit__section bottom"></div>
+                        <div class="digit__section left" style="bottom: 5px;"></div>
+                        <div class="digit__section left" style="top: 5px;"></div>
+                    </div>
+                    <div class="divider">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="digit__box">
+                        <div class="digit__section top"></div>
+                        <div class="digit__section top" style="top: 50%;"></div>
+                        <div class="digit__section right" style="top: 5px;"></div>
+                        <div class="digit__section right" style="bottom: 5px;"></div>
+                        <div class="digit__section bottom"></div>
+                        <div class="digit__section left" style="bottom: 5px;"></div>
+                        <div class="digit__section left" style="top: 5px;"></div>
+                    </div>
+                    <div class="digit__box">
+                        <div class="digit__section top"></div>
+                        <div class="digit__section top" style="top: 50%;"></div>
+                        <div class="digit__section right" style="top: 5px;"></div>
+                        <div class="digit__section right" style="bottom: 5px;"></div>
+                        <div class="digit__section bottom"></div>
+                        <div class="digit__section left" style="bottom: 5px;"></div>
+                        <div class="digit__section left" style="top: 5px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header>
+            <div class="color__selector">
+                <button onclick="changeDisplayColor(event)" style="background-color: #ffffff;"></button>
+                <button onclick="changeDisplayColor(event)" style="background-color: #ff3705;"></button>
+                <button onclick="changeDisplayColor(event)" style="background-color: #ff059b;"></button>
+                <button onclick="changeDisplayColor(event)" style="background-color: #05ff9b;"></button>
+                <button onclick="changeDisplayColor(event)" style="background-color: #059bff;"></button>
+            </div>
+        </header>
+        <script>
+            /* constants -> */
+            const DIGIT_BOXES = document.querySelectorAll(".digit__box");
+            const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
+            const DIVIDER_COLOR = "#ffffff";
+            /* <- constants */
+
+            /* variables -> */
+            let displayColor = "#ffffff";
+            /* <- variables */
+
+            // color dividers
+            const dots = document.querySelectorAll(".dot");
+            for (const dot of dots) {
+                dot.style.backgroundColor = DIVIDER_COLOR;
+            }
+
+            // colorSelectorButton -> removes the box shadow of this button while setting the box shadow of all other color selector buttons
+            const setSelectedColorSelectorButton = colorSelectorButton => {
+                for (const button of COLOR_SELECTOR_BUTTONS)
+                    button.style.boxShadow = "0 5px 5px #050505";
+                colorSelectorButton.style.boxShadow = "none";
+            }
+
+            // result(current time) -> "hhmmss"
+            const getCurrentTime = () => {
+                const date = new Date().toLocaleString("en-US", {
+                    hour12: true,
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }).split(':');
+
+                date[date.length - 1] = date[date.length - 1].split(' ')[0];
+
+                return date.join('');
+            }
+
+            // rgb -> [255, 255, 255]
+            // result(hex) -> "#ffffff"
+            const convertRgbToHex = rgb => {
+                const hex = [];
+                for (const value of rgb) {
+                    const conversion = parseInt(value).toString(16);
+                    hex.push(conversion.length === 1 ? `0${conversion}` : conversion);
+                }
+                return `#${hex.join('')}`;
+            }
+
+            /*
+                digit render data ->
+                [
+                    digit__section top,
+                    digit__section top,
+                    digit__section right,
+                    digit__section right,
+                    digit__section bottom,
+                    digit__section left,
+                    digit__section left
+                ]
+                0 -> off
+                1 -> on
+            */
+            const empty = [0, 0, 0, 0, 0, 0, 0];
+            const zero = [1, 0, 1, 1, 1, 1, 1];
+            const one = [0, 0, 1, 1, 0, 0, 0];
+            const two = [1, 1, 1, 0, 1, 1, 0];
+            const three = [1, 1, 1, 1, 1, 0, 0];
+            const four = [0, 1, 1, 1, 0, 0, 1];
+            const five = [1, 1, 0, 1, 1, 0, 1];
+            const six = [1, 1, 0, 1, 1, 1, 1];
+            const seven = [1, 0, 1, 1, 0, 0, 0];
+            const eight = [1, 1, 1, 1, 1, 1, 1];
+            const nine = [1, 1, 1, 1, 0, 0, 1];
+            /*
+                <- digit render data
+            */
+
+            // takes an array of digit render data and changes the digit boxes digit sections according to that data
+            const render = (digitRenderData, digitBox) => {
+                for (let i = 0; i < digitRenderData.length; i++) {
+                    if (digitRenderData[i] === 1)
+                        digitBox.children[i].style.backgroundColor = displayColor;
+                    else
+                        digitBox.children[i].style.backgroundColor = `${displayColor}05`;
+                }
+            }
+            
+            // number -> integer representation of the digit to be rendered
+            // digitBox -> the element responsible for rendering the number
+            const renderFromNumber = (number, digitBox) => {
+                switch(number) {
+                    case 0:
+                        render(zero, digitBox);
+                        break;
+                    case 1:
+                        render(one, digitBox);
+                        break;
+                    case 2:
+                        render(two, digitBox);
+                        break;
+                    case 3:
+                        render(three, digitBox);
+                        break;
+                    case 4:
+                        render(four, digitBox);
+                        break;
+                    case 5:
+                        render(five, digitBox);
+                        break;
+                    case 6:
+                        render(six, digitBox);
+                        break;
+                    case 7:
+                        render(seven, digitBox);
+                        break;
+                    case 8:
+                        render(eight, digitBox);
+                        break;
+                    case 9:
+                        render(nine, digitBox);
+                        break;
+                    case 10:
+                        render(empty, digitBox);
+                }
+            }
+
+            // renders each digit of the current time sequentially
+            const update = () => {
+                const currentTime = getCurrentTime()
+
+                for (let i = 0; i < currentTime.length; i++) {
+                    if (i === 0 && parseInt(currentTime[i]) === 0)
+                        renderFromNumber(10, DIGIT_BOXES[i]);
+                    else
+                        renderFromNumber(parseInt(currentTime[i]), DIGIT_BOXES[i]);
+                }
+            }
+
+            // changes the display color of the digital clock to the background color of the element which raised the event
+            const changeDisplayColor = e => {
+                setSelectedColorSelectorButton(e.target);
+
+                const rgb = e.target.style.backgroundColor;
+                const rgbValues = rgb.split('(')[1].split(')')[0].split(", ");
+                displayColor = convertRgbToHex(rgbValues);
+
+                update();
+            }
+
+            setSelectedColorSelectorButton(COLOR_SELECTOR_BUTTONS[0]);
+            update();
+            setInterval(update, 1000);
+        </script>
+    </body>
+</html>
