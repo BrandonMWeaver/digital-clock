@@ -13,7 +13,7 @@
     </head>
     <body>
         <div class="clock__container">
-            <div class="clock__border">
+            <div class="clock__front">
                 <div class="clock">
                     <div class="digit__box">
                         <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
@@ -79,6 +79,13 @@
                     </div>
                 </div>
             </div>
+            <div class="clock__top"></div>
+            <div class="clock__back"></div>
+            <div class="clock__right"></div>
+            <div class="clock__left"></div>
+            <div class="clock__corner__right"></div>
+            <div class="clock__corner__left"></div>
+            <div class="clock__refraction"></div>
         </div>
         <header>
             <div class="color__selector">
@@ -94,6 +101,7 @@
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const DIGIT_BOXES = document.querySelectorAll(".digit__box");
             const DOTS = document.querySelectorAll(".dot");
+            const CLOCK_REFRACTION = document.querySelector(".clock__refraction");
             const DIVIDER_COLOR = "#ffffff";
             /* <- constants */
 
@@ -235,6 +243,7 @@
                 const rgb = e.target.style.backgroundColor;
                 const rgbValues = rgb.split('(')[1].split(')')[0].split(", ");
                 displayColor = convertRgbToHex(rgbValues);
+                CLOCK_REFRACTION.style.backgroundColor = displayColor;
 
                 update();
             }

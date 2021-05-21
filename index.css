@@ -6,6 +6,8 @@
 */
 
 body {
+    overflow: hidden;
+
     margin: 0;
 
     background-color: #050505;
@@ -51,15 +53,28 @@ header {
 }
 
 .clock__container {
+    position: relative;
+    perspective: 7500px;
+    transform-style: preserve-3d;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     width: 100vw;
     height: 100vh;
+
+    animation: rotateScene 10s infinite ease-in-out alternate;
 }
 
-.clock__border {
+@keyframes rotateScene {
+    0% { transform: rotateX(340deg) rotateY(-20deg); }
+    100% { transform: rotateX(340deg) rotateY(20deg); }
+}
+
+.clock__front {
+    position: absolute;
+
     padding: 10px;
 
     background-image: linear-gradient(#373737 0%, #050505 75%);
@@ -152,4 +167,104 @@ header {
     height: calc(50% - 10px);
 
     clip-path: polygon(0 0, 100% 10px, 100% calc(100% - 10px), 0 100%);
+}
+
+.clock__back {
+    position: absolute;
+    transform:
+        translateZ(-100px);
+
+    width: 870px;
+    height: 370px;
+
+    background-image: linear-gradient(#373737 0%, #050505 75%);
+
+    clip-path: polygon(30px 0, calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 30px 100%, 0 calc(100% - 30px), 0 30px);
+}
+
+.clock__top {
+    position: absolute;
+    transform:
+        translateY(-184px)
+        translateZ(-50px)
+        rotateX(90deg);
+
+    width: 810px;
+    height: 100px;
+
+    background-color: #373737;
+}
+
+.clock__right {
+    position: absolute;
+    transform:
+        translateX(434px)
+        translateZ(-50px)
+        rotateY(90deg);
+
+    width: 100px;
+    height: 306px;
+
+    background-image: linear-gradient(#373737 0%, #050505 calc(75% + 15px));
+}
+
+.clock__left {
+    position: absolute;
+    transform:
+        translateX(-434px)
+        translateZ(-50px)
+        rotateY(90deg);
+
+    width: 100px;
+    height: 306px;
+
+    background-image: linear-gradient(#373737 0%, #050505 calc(75% + 15px));
+}
+
+.clock__corner__right {
+    position: absolute;
+    transform:
+        translateX(-419px)
+        translateY(-169px)
+        translateZ(-50px)
+        rotateZ(45deg)
+        rotateY(90deg);
+
+    width: 100px;
+    height: 45.5px;
+
+    background-color: #373737;
+}
+
+.clock__corner__left {
+    position: absolute;
+    transform:
+        translateX(419px)
+        translateY(-169px)
+        translateZ(-50px)
+        rotateZ(135deg)
+        rotateY(90deg);
+
+    width: 100px;
+    height: 45.5px;
+
+    background-color: #373737;
+}
+
+.clock__refraction {
+    position: absolute;
+
+    transform:
+        translateZ(210px)
+        translateY(170px)
+        rotateX(90deg);
+
+    width: calc(750px * 2);
+    height: 400px;
+
+    background-image: linear-gradient(#ffffff37, #050505);
+
+    clip-path: polygon(calc(25% + 10px) 0, calc(75% - 10px) 0, 100% 100%, 0 100%);
+
+    transition: background-color .25s;
 }
