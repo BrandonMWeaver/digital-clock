@@ -16,7 +16,7 @@
             <div class="clock__front">
                 <div class="clock">
                     <div class="message__display">
-                        <p>Digital clock - Brandon Weaver</p>
+                        <p></p>
                         <div class="overlay"></div>
                     </div>
                     <div class="digit__box">
@@ -109,16 +109,24 @@
         <script>
             /* constants -> */
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
+            const MESSAGE_DISPLAY = document.querySelector(".message__display p");
             const DIGIT_BOXES = document.querySelectorAll(".digit__box");
             const DOTS = document.querySelectorAll(".dot");
             const MERIDIEMS = document.querySelectorAll(".meridiem");
             const CLOCK_REFRACTION = document.querySelector(".clock__refraction");
+
             const DIVIDER_COLOR = "#ffffff";
+            const MESSAGES = [
+                "Digital clock - Brandon Weaver",
+                "Built with HTML, CSS, and plain old JavaScript",
+                "Thanks for checking it out!"
+            ];
             /* <- constants */
 
             /* variables -> */
             let displayColor = "#ffffff";
             let meridiem = "AM";
+            let currentMessage = 0;
             /* <- variables */
 
             // color dividers
@@ -274,10 +282,23 @@
                 update();
             }
 
+            const displayMessage = () => {
+                if (currentMessage === MESSAGES.length)
+                    currentMessage = 0;
+                MESSAGE_DISPLAY.innerText = MESSAGES[currentMessage];
+                MESSAGE_DISPLAY.style.animation = "scrollMessage 30s infinite linear"
+
+                console.log(MESSAGES[currentMessage])
+                
+                ++currentMessage;
+            }
+
             setSelectedColorSelectorButton(COLOR_SELECTOR_BUTTONS[0]);
             CLOCK_REFRACTION.style.backgroundColor = displayColor;
             update();
             setInterval(update, 1000);
+            displayMessage()
+            setInterval(displayMessage, 30000);
         </script>
     </body>
 </html>

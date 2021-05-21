@@ -100,7 +100,7 @@ header {
     overflow: hidden;
 
     position: absolute;
-    top: 30px;
+    top: 27.5px;
     left: 35px;
 
     display: flex;
@@ -109,15 +109,6 @@ header {
 
     width: calc(100% - 70px);
     height: 25px;
-
-    font-family: monospace;
-    font-size: 15px;
-
-    color: #fff;
-
-    background-image: linear-gradient(to right, #050505 0%, #05050500 5px, #05050500 calc(100% - 5px), #050505 100%);
-
-    user-select: none;
 }
 
 .message__display .overlay {
@@ -136,10 +127,20 @@ header {
     top: 0;
     left: calc(100% + 35px);
 
+    display: flex;
+    align-items: center;
+
     margin: 0;
     width: 100%;
+    height: 100%;
 
-    animation: scrollMessage 30s infinite linear;
+    text-transform: uppercase;
+    font-family: monospace;
+    font-size: 15px;
+
+    color: #ffffff9b;
+
+    user-select: none;
 }
 
 @keyframes scrollMessage {
