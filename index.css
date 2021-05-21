@@ -224,14 +224,14 @@ header {
 .clock__corner__right {
     position: absolute;
     transform:
-        translateX(420.25px)
-        translateY(-169px)
+        translateX(420.5px)
+        translateY(-169.25px)
         translateZ(-50px)
         rotateZ(135deg)
         rotateY(90deg);
 
     width: 100px;
-    height: 44px;
+    height: 43.5px;
 
     background-color: #373737;
 }
@@ -239,14 +239,14 @@ header {
 .clock__corner__left {
     position: absolute;
     transform:
-        translateX(-420.25px)
-        translateY(-169px)
+        translateX(-420.5px)
+        translateY(-169.25px)
         translateZ(-50px)
         rotateZ(45deg)
         rotateY(90deg);
 
     width: 100px;
-    height: 44px;
+    height: 43.5px;
 
     background-color: #9b9b9b;
 }
