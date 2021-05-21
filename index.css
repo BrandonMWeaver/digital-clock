@@ -169,6 +169,18 @@ header {
     clip-path: polygon(0 0, 100% 10px, 100% calc(100% - 10px), 0 100%);
 }
 
+.meridiem {
+    font-family: monospace;
+    font-size: 15px;
+    color: #fff;
+
+    user-select: none;
+}
+
+.meridiem + .meridiem {
+    margin-top: 50px;
+}
+
 .clock__back {
     position: absolute;
     transform:

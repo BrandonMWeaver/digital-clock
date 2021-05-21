@@ -77,6 +77,10 @@
                         <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
                         <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
                     </div>
+                    <div class="divider">
+                        <div class="meridiem">A.M.</div>
+                        <div class="meridiem">P.M.</div>
+                    </div>
                 </div>
             </div>
             <div class="clock__top"></div>
@@ -103,12 +107,14 @@
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const DIGIT_BOXES = document.querySelectorAll(".digit__box");
             const DOTS = document.querySelectorAll(".dot");
+            const MERIDIEMS = document.querySelectorAll(".meridiem");
             const CLOCK_REFRACTION = document.querySelector(".clock__refraction");
             const DIVIDER_COLOR = "#ffffff";
             /* <- constants */
 
             /* variables -> */
             let displayColor = "#ffffff";
+            let meridiem = "AM";
             /* <- variables */
 
             // color dividers
@@ -123,6 +129,17 @@
                 colorSelectorButton.style.boxShadow = "none";
             }
 
+            const setMeridiem = meridiem => {
+                if (meridiem === "AM") {
+                    MERIDIEMS[0].style.color = "#ffffff";
+                    MERIDIEMS[1].style.color = "#ffffff05";
+                }
+                else {
+                    MERIDIEMS[0].style.color = "#ffffff05";
+                    MERIDIEMS[1].style.color = "#ffffff";
+                }
+            }
+
             // result(current time) -> "hhmmss"
             const getCurrentTime = () => {
                 const date = new Date().toLocaleString("en-US", {
@@ -131,6 +148,9 @@
                     minute: "2-digit",
                     second: "2-digit"
                 }).split(':');
+
+                meridiem = date[date.length - 1].split(' ')[1];
+                setMeridiem(meridiem);
 
                 date[date.length - 1] = date[date.length - 1].split(' ')[0];
 
