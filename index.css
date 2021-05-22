@@ -25,6 +25,66 @@ header {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 25px 100%, 0 calc(100% - 25px));
 }
 
+footer {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+
+    width: calc(100% - 50px);
+
+    background-color: #373737;
+
+    clip-path: polygon(25px 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 0 100%, 0 25px);
+}
+
+.footer__panel {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+
+    width: 100%;
+    height: 75px;
+}
+
+.on__off {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+
+    background-color: #050505;
+
+    box-shadow: 0 5px 5px #050505;
+
+    border: none;
+    border-radius: 15px;
+}
+
+.on__off .overlay {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: linear-gradient(315deg, #696969, #050505, #050505, #373737);
+    background-size: 200%;
+    background-position: left;
+
+    border-radius: 5px;
+}
+
+.on__off:hover {
+    cursor: pointer;
+}
+
+.on__off:active .overlay {
+    background-position: right;
+}
+
 .color__selector {
     display: flex;
     justify-content: space-evenly;
@@ -40,7 +100,6 @@ header {
     height: 50px;
 
     border: 5px solid #373737;
-    outline: none;
     border-radius: 50%;
 
     box-shadow: 0 5px 5px #050505;
@@ -141,6 +200,8 @@ header {
     color: #ffffff9b;
 
     user-select: none;
+
+    transition: color .25s;
 }
 
 @keyframes scrollMessage {
@@ -171,6 +232,8 @@ header {
     width: 50%;
 
     border-radius: 50%;
+
+    transition: background-color .25s;
 }
 
 .dot + .dot {
@@ -230,6 +293,8 @@ header {
     color: #fff;
 
     user-select: none;
+
+    transition: color .25s;
 }
 
 .meridiem + .meridiem {

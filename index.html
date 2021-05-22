@@ -106,6 +106,13 @@
                 <button onclick="changeDisplayColor(event)" style="background-color: #059bff;"></button>
             </div>
         </header>
+        <footer>
+            <div class="footer__panel">
+                <button class="on__off" onclick="powerDown()">
+                    <div class="overlay"></div>
+                </button>
+            </div>
+        </footer>
         <script>
             /* constants -> */
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
@@ -124,7 +131,10 @@
             /* <- constants */
 
             /* variables -> */
+            let on = true;
             let displayColor = "#ffffff";
+            let offStateDisplayColor = "#ffffff";
+            let currentlySelectedColorButton = COLOR_SELECTOR_BUTTONS[0];
             let meridiem = "AM";
             let currentMessage = 0;
             /* <- variables */
@@ -141,6 +151,8 @@
                 colorSelectorButton.style.boxShadow = "none";
             }
 
+            // meridiem -> "AM" or "PM"
+            // the proper meridiem is set accordingly
             const setMeridiem = meridiem => {
                 if (meridiem === "AM") {
                     MERIDIEMS[0].style.color = "#ffffff";
@@ -214,6 +226,8 @@
                 for (let i = 0; i < digitRenderData.length; i++) {
                     if (digitRenderData[i] === 1)
                         digitBox.children[i].style.backgroundColor = displayColor;
+                    else if (!on)
+                        digitBox.children[i].style.backgroundColor = `${offStateDisplayColor}05`;
                     else
                         digitBox.children[i].style.backgroundColor = `${displayColor}05`;
                 }
@@ -259,11 +273,12 @@
             }
 
             // renders each digit of the current time sequentially
-            const update = () => {
+            const update = (powerDown = false) => {
+                console.log("CALLED")
                 const currentTime = getCurrentTime()
 
                 for (let i = 0; i < currentTime.length; i++) {
-                    if (i === 0 && parseInt(currentTime[i]) === 0)
+                    if (powerDown || i === 0 && parseInt(currentTime[i]) === 0)
                         renderFromNumber(10, DIGIT_BOXES[i]);
                     else
                         renderFromNumber(parseInt(currentTime[i]), DIGIT_BOXES[i]);
@@ -273,13 +288,17 @@
             // changes the display color of the digital clock to the background color of the element which raised the event
             const changeDisplayColor = e => {
                 setSelectedColorSelectorButton(e.target);
+                currentlySelectedColorButton = e.target;
 
                 const rgb = e.target.style.backgroundColor;
                 const rgbValues = rgb.split('(')[1].split(')')[0].split(", ");
                 displayColor = convertRgbToHex(rgbValues);
-                CLOCK_REFRACTION.style.backgroundColor = displayColor;
 
-                update();
+                if (on) {
+                    CLOCK_REFRACTION.style.backgroundColor = displayColor;
+
+                    update();
+                }
             }
 
             const displayMessage = () => {
@@ -287,18 +306,62 @@
                     currentMessage = 0;
                 MESSAGE_DISPLAY.innerText = MESSAGES[currentMessage];
                 MESSAGE_DISPLAY.style.animation = "scrollMessage 30s infinite linear"
-
-                console.log(MESSAGES[currentMessage])
                 
                 ++currentMessage;
             }
 
-            setSelectedColorSelectorButton(COLOR_SELECTOR_BUTTONS[0]);
+            /* initial conditions -> */
+            setSelectedColorSelectorButton(currentlySelectedColorButton);
             CLOCK_REFRACTION.style.backgroundColor = displayColor;
             update();
-            setInterval(update, 1000);
-            displayMessage()
-            setInterval(displayMessage, 30000);
+            let updateInterval = setInterval(update, 1000);
+            displayMessage();
+            let displayMessageInterval = setInterval(displayMessage, 30000);
+            /* <- initial conditions */
+
+            // conditions for power down
+            const powerDown = () => {
+                if (!on) {
+                    powerUp();
+                    return;
+                }
+
+                clearInterval(updateInterval);
+                clearInterval(displayMessageInterval);
+
+                on = false;
+                offStateDisplayColor = displayColor;
+
+                update(true);
+                MESSAGE_DISPLAY.style.color = "#05050500";
+                MESSAGE_DISPLAY.style.animation = "none";
+                for (const dot of DOTS)
+                    dot.style.backgroundColor = "#ffffff05";
+                for (const meridiem of MERIDIEMS)
+                    meridiem.style.color = "#ffffff05";
+                CLOCK_REFRACTION.style.backgroundColor = "#05050500";
+            }
+
+            // conditions for power up
+            const powerUp = () => {
+                setSelectedColorSelectorButton(currentlySelectedColorButton);
+                for (const dot of DOTS)
+                    dot.style.backgroundColor = "#ffffff";
+                CLOCK_REFRACTION.style.backgroundColor = displayColor;
+
+                update();
+                updateInterval = setInterval(update, 1000);
+
+                MESSAGE_DISPLAY.style.color = "#ffffff9b";
+                if (currentMessage === 0)
+                    currentMessage = MESSAGES[MESSAGES.length - 1];
+                else
+                    --currentMessage;
+                displayMessage();
+                displayMessageInterval = setInterval(displayMessage, 30000);
+
+                on = true;
+            }
         </script>
     </body>
 </html>
