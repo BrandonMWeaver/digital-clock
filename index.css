@@ -25,6 +25,32 @@ header {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 25px 100%, 0 calc(100% - 25px));
 }
 
+.color__selector {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+
+    width: 100%;
+    height: 75px;
+}
+
+.color__selector button {
+    width: 50px;
+    height: 50px;
+
+    border: 5px solid #373737;
+    border-radius: 50%;
+
+    box-shadow: 0 5px 5px #050505;
+
+    transition: box-shadow 0.25s;
+}
+
+.color__selector button:hover {
+    cursor: pointer;
+}
+
 footer {
     position: fixed;
     bottom: 25px;
@@ -85,35 +111,85 @@ footer {
     background-position: right;
 }
 
-.color__selector {
+.view__selector {
+    position: fixed;
+    bottom: 37.5px;
+    left: calc(100% - 232.5px);
+
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-direction: row;
 
-    width: 100%;
-    height: 75px;
-}
-
-.color__selector button {
-    width: 50px;
+    width: 180px;
     height: 50px;
+    
+    background-color: #696969;
 
-    border: 5px solid #373737;
-    border-radius: 50%;
+    border-radius: 10px;
 
     box-shadow: 0 5px 5px #050505;
 
-    transition: box-shadow 0.25s;
+    user-select: none;
 }
 
-.color__selector button:hover {
+.view__selector .radio__button__container {
+    position: relative;
+
+    width: 30px;
+    height: 30px;
+
     cursor: pointer;
+}
+
+.view__selector input {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+}
+
+.view__selector .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    /* background-image: linear-gradient(315deg, #696969, #050505, #050505, #373737); */
+    /* background-size: 200%; */
+    /* background-position: left; */
+
+    background-color: #373737;
+
+    box-shadow: 0 5px 5px #050505;
+
+    border-radius: 5px;
+}
+
+.view__selector input:checked ~ .overlay {
+    /* background-position: right; */
+
+    box-shadow: inset 0 5px 5px #050505;
+}
+
+@keyframes boxShadow {
+    0% { box-shadow: 0 5px 5px #050505; }
+    50% { box-shadow: none; }
+    100% { box-shadow: inset 0 5px 5px #050505; }
 }
 
 .clock__container {
     position: relative;
-    perspective: 5750px;
+    transform:
+        rotateX(0deg)
+        rotateY(0deg);
     transform-style: preserve-3d;
 
     display: flex;
@@ -123,12 +199,14 @@ footer {
     width: 100vw;
     height: 100vh;
 
-    animation: rotateScene 10s infinite ease-in-out alternate;
+    /* animation: rotateScene 10s infinite ease-in-out alternate; */
+
+    transition: transform 1s ease-in-out;
 }
 
 @keyframes rotateScene {
-    0% { transform: rotateX(340deg) rotateY(-20deg); }
-    100% { transform: rotateX(340deg) rotateY(20deg); }
+    0% { transform: rotateX(340deg) rotateY(-30deg); }
+    100% { transform: rotateX(340deg) rotateY(30deg); }
 }
 
 .clock__front {
@@ -318,7 +396,7 @@ footer {
     position: absolute;
     transform:
         translateY(-185px)
-        translateZ(-51px)
+        translateZ(-50px)
         rotateX(90deg);
 
     width: 810px;
@@ -335,7 +413,7 @@ footer {
         rotateY(90deg);
 
     width: 100px;
-    height: 305px;
+    height: 310px;
 
     background-image: linear-gradient(#373737 0%, #050505 calc(75% + 15px));
 }
@@ -348,7 +426,7 @@ footer {
         rotateY(90deg);
 
     width: 100px;
-    height: 305px;
+    height: 310px;
 
     background-image: linear-gradient(#696969 0%, #050505 calc(75% + 15px));
 }
@@ -357,13 +435,13 @@ footer {
     position: absolute;
     transform:
         translateX(420.5px)
-        translateY(-169.25px)
+        translateY(-170px)
         translateZ(-50px)
-        rotateZ(135deg)
-        rotateY(90deg);
+        rotateX(90deg)
+        rotateY(45deg);
 
-    width: 100px;
-    height: 43.5px;
+    width: 42.5px;
+    height: 100px;
 
     background-color: #373737;
 }
@@ -371,14 +449,14 @@ footer {
 .clock__corner__left {
     position: absolute;
     transform:
-        translateX(-420.5px)
-        translateY(-169.25px)
+        translateX(-419.5px)
+        translateY(-170px)
         translateZ(-50px)
-        rotateZ(45deg)
-        rotateY(90deg);
+        rotateX(90deg)
+        rotateY(-45deg);
 
-    width: 100px;
-    height: 43.5px;
+    width: 42.5px;
+    height: 100px;
 
     background-color: #9b9b9b;
 }

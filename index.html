@@ -113,9 +113,28 @@
                 </button>
             </div>
         </footer>
+        <div class="view__selector">
+            <label class="radio__button__container">
+                <input id="0" type="radio" name="view-option" onclick="switchView(event)" checked="checked" />
+                <span class="overlay"></span>
+            </label>
+            <label class="radio__button__container">
+                <input id="1" type="radio" name="view-option" onclick="switchView(event)" />
+                <span class="overlay"></span>
+            </label>
+            <label class="radio__button__container">
+                <input id="2" type="radio" name="view-option" onclick="switchView(event)" />
+                <span class="overlay"></span>
+            </label>
+            <label class="radio__button__container">
+                <input id="3" type="radio" name="view-option" onclick="switchView(event)" />
+                <span class="overlay"></span>
+            </label>
+        </div>
         <script>
             /* constants -> */
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
+            const CLOCK_CONTAINER = document.querySelector(".clock__container");
             const MESSAGE_DISPLAY = document.querySelector(".message__display p");
             const DIGIT_BOXES = document.querySelectorAll(".digit__box");
             const DOTS = document.querySelectorAll(".dot");
@@ -274,7 +293,6 @@
 
             // renders each digit of the current time sequentially
             const update = (powerDown = false) => {
-                console.log("CALLED")
                 const currentTime = getCurrentTime()
 
                 for (let i = 0; i < currentTime.length; i++) {
@@ -308,6 +326,17 @@
                 MESSAGE_DISPLAY.style.animation = "scrollMessage 30s infinite linear"
                 
                 ++currentMessage;
+            }
+
+            const switchView = e => {
+                if (e.target.id === '0')
+                    CLOCK_CONTAINER.style.transform = "rotateX(0deg)";
+                else if (e.target.id === '1')
+                    CLOCK_CONTAINER.style.transform = "rotateX(-20deg) rotateY(0deg)";
+                else if (e.target.id === '2')
+                    CLOCK_CONTAINER.style.transform = "rotateX(-45deg) rotateY(45deg)";
+                else
+                    CLOCK_CONTAINER.style.transform = "rotateX(-45deg) rotateY(-45deg)";
             }
 
             /* initial conditions -> */
@@ -349,6 +378,8 @@
                     dot.style.backgroundColor = "#ffffff";
                 CLOCK_REFRACTION.style.backgroundColor = displayColor;
 
+                on = true;
+
                 update();
                 updateInterval = setInterval(update, 1000);
 
@@ -359,8 +390,6 @@
                     --currentMessage;
                 displayMessage();
                 displayMessageInterval = setInterval(displayMessage, 30000);
-
-                on = true;
             }
         </script>
     </body>
