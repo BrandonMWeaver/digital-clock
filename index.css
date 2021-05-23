@@ -284,6 +284,8 @@ footer {
 }
 
 .date__display p {
+    margin: 0;
+
     text-align: center;
     text-transform: uppercase;
     font-family: monospace;
