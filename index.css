@@ -434,7 +434,7 @@ footer {
 .clock__corner__right {
     position: absolute;
     transform:
-        translateX(420.5px)
+        translateX(419.5px)
         translateY(-170px)
         translateZ(-50px)
         rotateX(90deg)
@@ -449,7 +449,7 @@ footer {
 .clock__corner__left {
     position: absolute;
     transform:
-        translateX(-419.5px)
+        translateX(-420.5px)
         translateY(-170px)
         translateZ(-50px)
         rotateX(90deg)
