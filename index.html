@@ -15,11 +15,11 @@
         <div class="clock__container">
             <div class="clock__front">
                 <div class="clock">
-                    <div class="message__display">
+                    <div class="message__display__container">
                         <p></p>
                         <div class="overlay"></div>
                     </div>
-                    <div class="date__display">
+                    <div class="date__display__container">
                         <p></p>
                         <p></p>
                         <p></p>
@@ -141,8 +141,9 @@
             /* constants -> */
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const CLOCK_CONTAINER = document.querySelector(".clock__container");
-            const MESSAGE_DISPLAY = document.querySelector(".message__display p");
-            const DATE_DISPLAY = document.querySelectorAll(".date__display p");
+            const MESSAGE_DISPLAY_CONTAINER = document.querySelector(".message__display__container");
+            const MESSAGE_DISPLAY = MESSAGE_DISPLAY_CONTAINER.children[0];
+            const DATE_DISPLAY = document.querySelectorAll(".date__display__container p");
             const DIGIT_BOXES = document.querySelectorAll(".digit__box");
             const DOTS = document.querySelectorAll(".dot");
             const MERIDIEMS = document.querySelectorAll(".meridiem");
@@ -390,7 +391,6 @@
 
                 update(true);
                 MESSAGE_DISPLAY.style.color = "#05050500";
-                MESSAGE_DISPLAY.style.animation = "none";
                 for (const dot of DOTS)
                     dot.style.backgroundColor = "#ffffff05";
                 for (const meridiem of MERIDIEMS)
@@ -412,6 +412,8 @@
                 update();
                 updateInterval = setInterval(update, 1000);
 
+                MESSAGE_DISPLAY.remove();
+                MESSAGE_DISPLAY_CONTAINER.prepend(MESSAGE_DISPLAY);
                 MESSAGE_DISPLAY.style.color = "#ffffff9b";
                 if (currentMessage === 0)
                     currentMessage = MESSAGES[MESSAGES.length - 1];
