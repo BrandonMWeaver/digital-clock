@@ -19,6 +19,12 @@
                         <p></p>
                         <div class="overlay"></div>
                     </div>
+                    <div class="date__display">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
                     <div class="digit__box">
                         <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
                         <div class="digit__section top" style="top: 50%;"></div>
@@ -136,6 +142,7 @@
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const CLOCK_CONTAINER = document.querySelector(".clock__container");
             const MESSAGE_DISPLAY = document.querySelector(".message__display p");
+            const DATE_DISPLAY = document.querySelectorAll(".date__display p");
             const DIGIT_BOXES = document.querySelectorAll(".digit__box");
             const DOTS = document.querySelectorAll(".dot");
             const MERIDIEMS = document.querySelectorAll(".meridiem");
@@ -185,19 +192,35 @@
 
             // result(current time) -> "hhmmss"
             const getCurrentTime = () => {
-                const date = new Date().toLocaleString("en-US", {
+                const time = new Date().toLocaleString("en-US", {
                     hour12: true,
                     hour: "2-digit",
                     minute: "2-digit",
                     second: "2-digit"
                 }).split(':');
 
-                meridiem = date[date.length - 1].split(' ')[1];
+                meridiem = time[time.length - 1].split(' ')[1];
                 setMeridiem(meridiem);
 
-                date[date.length - 1] = date[date.length - 1].split(' ')[0];
+                time[time.length - 1] = time[time.length - 1].split(' ')[0];
 
-                return date.join('');
+                return time.join('');
+            }
+
+            // result(current date) -> [ddd, mmm, d, y]
+            const getCurrentDate = () => {
+                const date = new Date().toLocaleString("en-US", {
+                    weekday: "short",
+                    day: "2-digit",
+                    month: "short",
+                    year: "2-digit"
+                }).split(", ");
+
+                const separatedDayInfo = date[1].split(' ');
+                date[1] = separatedDayInfo[0];
+                date.splice(2, 0, separatedDayInfo[1]);
+
+                return date;
             }
 
             // rgb -> [255, 255, 255]
@@ -293,7 +316,7 @@
 
             // renders each digit of the current time sequentially
             const update = (powerDown = false) => {
-                const currentTime = getCurrentTime()
+                const currentTime = getCurrentTime();
 
                 for (let i = 0; i < currentTime.length; i++) {
                     if (powerDown || i === 0 && parseInt(currentTime[i]) === 0)
@@ -301,6 +324,10 @@
                     else
                         renderFromNumber(parseInt(currentTime[i]), DIGIT_BOXES[i]);
                 }
+
+                const currentDate = getCurrentDate();
+                for (let i = 0; i < currentDate.length; i++)
+                    DATE_DISPLAY[i].innerText = currentDate[i];
             }
 
             // changes the display color of the digital clock to the background color of the element which raised the event
@@ -368,6 +395,8 @@
                     dot.style.backgroundColor = "#ffffff05";
                 for (const meridiem of MERIDIEMS)
                     meridiem.style.color = "#ffffff05";
+                for (const section of DATE_DISPLAY)
+                    section.style.color = "#050505";
                 CLOCK_REFRACTION.style.backgroundColor = "#05050500";
             }
 
@@ -390,6 +419,9 @@
                     --currentMessage;
                 displayMessage();
                 displayMessageInterval = setInterval(displayMessage, 30000);
+
+                for (const section of DATE_DISPLAY)
+                    section.style.color = "#ffffff9b";
             }
         </script>
     </body>

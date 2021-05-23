@@ -162,10 +162,6 @@ footer {
     width: 100%;
     height: 100%;
 
-    /* background-image: linear-gradient(315deg, #696969, #050505, #050505, #373737); */
-    /* background-size: 200%; */
-    /* background-position: left; */
-
     background-color: #373737;
 
     box-shadow: 0 5px 5px #050505;
@@ -174,8 +170,6 @@ footer {
 }
 
 .view__selector input:checked ~ .overlay {
-    /* background-position: right; */
-
     box-shadow: inset 0 5px 5px #050505;
 }
 
@@ -199,14 +193,7 @@ footer {
     width: 100vw;
     height: 100vh;
 
-    /* animation: rotateScene 10s infinite ease-in-out alternate; */
-
     transition: transform 1s ease-in-out;
-}
-
-@keyframes rotateScene {
-    0% { transform: rotateX(340deg) rotateY(-30deg); }
-    100% { transform: rotateX(340deg) rotateY(30deg); }
 }
 
 .clock__front {
@@ -271,6 +258,33 @@ footer {
     width: 100%;
     height: 100%;
 
+    text-transform: uppercase;
+    font-family: monospace;
+    font-size: 15px;
+
+    color: #ffffff9b;
+
+    user-select: none;
+
+    transition: color .25s;
+}
+
+.date__display {
+    position: absolute;
+    bottom: 27.5px;
+    left: 35px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+    width: calc(100% - 70px);
+    height: 25px;
+}
+
+.date__display p {
+    text-align: center;
     text-transform: uppercase;
     font-family: monospace;
     font-size: 15px;
