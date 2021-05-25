@@ -242,6 +242,7 @@
 
                 const date = time[0].slice(0, -4).split(", ");
                 const separatedDayInfo = date[1].split(' ');
+                date[1] = separatedDayInfo[0];
                 date.splice(2, 0, separatedDayInfo[1]);
 
                 time = [time[0].slice(-2), time[1], time[2]];
