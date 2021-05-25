@@ -12,158 +12,160 @@
         <link rel="stylesheet" href="./index.css" />
     </head>
     <body>
-        <div class="clock__container">
-            <div class="clock__front">
-                <div class="clock">
-                    <div class="message__display__container">
-                        <p></p>
+        <div class="viewport">
+            <div class="clock__container">
+                <div class="clock__front">
+                    <div class="clock">
+                        <div class="message__display__container">
+                            <p></p>
+                            <div class="overlay"></div>
+                        </div>
+                        <div class="date__display__container">
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <div class="digit__box">
+                            <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section top" style="top: 50%;"></div>
+                            <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                            <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                        </div>
+                        <div class="digit__box">
+                            <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section top" style="top: 50%;"></div>
+                            <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                            <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                        </div>
+                        <div class="divider">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <div class="digit__box">
+                            <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section top" style="top: 50%;"></div>
+                            <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                            <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                        </div>
+                        <div class="digit__box">
+                            <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section top" style="top: 50%;"></div>
+                            <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                            <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                        </div>
+                        <div class="divider">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <div class="digit__box">
+                            <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section top" style="top: 50%;"></div>
+                            <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                            <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                        </div>
+                        <div class="digit__box">
+                            <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section top" style="top: 50%;"></div>
+                            <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                            <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                            <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                            <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                        </div>
+                        <div class="divider">
+                            <div class="meridiem">A.M.</div>
+                            <div class="meridiem">P.M.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clock__top"></div>
+                <div class="clock__right"></div>
+                <div class="clock__left"></div>
+                <div class="clock__corner__right"></div>
+                <div class="clock__corner__left"></div>
+                <div class="clock__corner__bottom__left"></div>
+                <div class="clock__back">
+                    <div class="clock__back__panel__container">
+                        <div class="clock__back__panel">
+                            <p class="engraving">Weaver Electronics</p>
+                        </div>
+                    </div>
+                    <div class="screw" style="top: 25px; left: 25px;">
+                        <div class="screw__shading">+</div>
+                    </div>
+                    <div class="screw" style="top: 25px; right: 25px;">
+                        <div class="screw__shading">+</div>
+                    </div>
+                    <div class="screw" style="bottom: 25px; right: 25px;">
+                        <div class="screw__shading">+</div>
+                    </div>
+                    <div class="screw" style="bottom: 25px; left: 25px;">
+                        <div class="screw__shading">+</div>
+                    </div>
+                </div>
+                <div class="clock__refraction">
+                    <div class="radius"></div>
+                </div>
+            </div>
+            <header>
+                <div class="color__selector">
+                    <button onclick="changeDisplayColor(event)" style="background-color: #ffffff;"></button>
+                    <button onclick="changeDisplayColor(event)" style="background-color: #ff3705;"></button>
+                    <button onclick="changeDisplayColor(event)" style="background-color: #ff059b;"></button>
+                    <button onclick="changeDisplayColor(event)" style="background-color: #05ff9b;"></button>
+                    <button onclick="changeDisplayColor(event)" style="background-color: #059bff;"></button>
+                </div>
+            </header>
+            <footer>
+                <div class="footer__panel">
+                    <button class="on__off" onclick="powerDown()">
                         <div class="overlay"></div>
-                    </div>
-                    <div class="date__display__container">
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                    </div>
-                    <div class="digit__box">
-                        <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section top" style="top: 50%;"></div>
-                        <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
-                        <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
-                    </div>
-                    <div class="digit__box">
-                        <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section top" style="top: 50%;"></div>
-                        <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
-                        <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
-                    </div>
-                    <div class="divider">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                    <div class="digit__box">
-                        <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section top" style="top: 50%;"></div>
-                        <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
-                        <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
-                    </div>
-                    <div class="digit__box">
-                        <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section top" style="top: 50%;"></div>
-                        <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
-                        <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
-                    </div>
-                    <div class="divider">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                    <div class="digit__box">
-                        <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section top" style="top: 50%;"></div>
-                        <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
-                        <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
-                    </div>
-                    <div class="digit__box">
-                        <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section top" style="top: 50%;"></div>
-                        <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
-                        <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
-                        <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
-                        <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
-                    </div>
-                    <div class="divider">
-                        <div class="meridiem">A.M.</div>
-                        <div class="meridiem">P.M.</div>
+                    </button>
+                </div>
+                <div class="view__selector">
+                    <label class="radio__button__container">
+                        <input id="0" type="radio" name="view-option" onclick="switchView(event)" checked disabled/>
+                        <span class="overlay"></span>
+                    </label>
+                    <label class="radio__button__container">
+                        <input id="1" type="radio" name="view-option" onclick="switchView(event)" />
+                        <span class="overlay"></span>
+                    </label>
+                    <label class="radio__button__container">
+                        <input id="2" type="radio" name="view-option" onclick="switchView(event)" />
+                        <span class="overlay"></span>
+                    </label>
+                    <label class="radio__button__container">
+                        <input id="3" type="radio" name="view-option" onclick="switchView(event)" />
+                        <span class="overlay"></span>
+                    </label>
+                    <label class="radio__button__container">
+                        <input id="4" type="radio" name="view-option" onclick="switchView(event)" />
+                        <span class="overlay"></span>
+                    </label>
+                </div>
+                <div class="rotate__scene__button__container">
+                    <div class="rotate__scene__button__border">
+                        <button onclick="rotateScene()"></button>
                     </div>
                 </div>
-            </div>
-            <div class="clock__top"></div>
-            <div class="clock__right"></div>
-            <div class="clock__left"></div>
-            <div class="clock__corner__right"></div>
-            <div class="clock__corner__left"></div>
-            <div class="clock__corner__bottom__left"></div>
-            <div class="clock__back">
-                <div class="clock__back__panel__container">
-                    <div class="clock__back__panel">
-                        <p class="engraving">Weaver Electronics</p>
-                    </div>
-                </div>
-                <div class="screw" style="top: 25px; left: 25px;">
-                    <div class="screw__shading">+</div>
-                </div>
-                <div class="screw" style="top: 25px; right: 25px;">
-                    <div class="screw__shading">+</div>
-                </div>
-                <div class="screw" style="bottom: 25px; right: 25px;">
-                    <div class="screw__shading">+</div>
-                </div>
-                <div class="screw" style="bottom: 25px; left: 25px;">
-                    <div class="screw__shading">+</div>
-                </div>
-            </div>
-            <div class="clock__refraction">
-                <div class="radius"></div>
-            </div>
-        </div>
-        <header>
-            <div class="color__selector">
-                <button onclick="changeDisplayColor(event)" style="background-color: #ffffff;"></button>
-                <button onclick="changeDisplayColor(event)" style="background-color: #ff3705;"></button>
-                <button onclick="changeDisplayColor(event)" style="background-color: #ff059b;"></button>
-                <button onclick="changeDisplayColor(event)" style="background-color: #05ff9b;"></button>
-                <button onclick="changeDisplayColor(event)" style="background-color: #059bff;"></button>
-            </div>
-        </header>
-        <footer>
-            <div class="footer__panel">
-                <button class="on__off" onclick="powerDown()">
-                    <div class="overlay"></div>
-                </button>
-            </div>
-        </footer>
-        <div class="view__selector">
-            <label class="radio__button__container">
-                <input id="0" type="radio" name="view-option" onclick="switchView(event)" checked disabled/>
-                <span class="overlay"></span>
-            </label>
-            <label class="radio__button__container">
-                <input id="1" type="radio" name="view-option" onclick="switchView(event)" />
-                <span class="overlay"></span>
-            </label>
-            <label class="radio__button__container">
-                <input id="2" type="radio" name="view-option" onclick="switchView(event)" />
-                <span class="overlay"></span>
-            </label>
-            <label class="radio__button__container">
-                <input id="3" type="radio" name="view-option" onclick="switchView(event)" />
-                <span class="overlay"></span>
-            </label>
-            <label class="radio__button__container">
-                <input id="4" type="radio" name="view-option" onclick="switchView(event)" />
-                <span class="overlay"></span>
-            </label>
-        </div>
-        <div class="rotate__scene__button__container">
-            <div class="rotate__scene__button__border">
-                <button onclick="rotateScene()"></button>
-            </div>
+            </footer>
         </div>
         <script>
             /* constants -> */
@@ -204,8 +206,11 @@
 
             // colorSelectorButton -> removes the box shadow of this button while setting the box shadow of all other color selector buttons
             const setSelectedColorSelectorButton = colorSelectorButton => {
-                for (const button of COLOR_SELECTOR_BUTTONS)
+                for (const button of COLOR_SELECTOR_BUTTONS) {
+                    button.disabled = false;
                     button.style.boxShadow = "0 5px 5px #050505";
+                }
+                colorSelectorButton.disabled = true;
                 colorSelectorButton.style.boxShadow = "none";
             }
 
