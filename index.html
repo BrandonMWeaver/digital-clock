@@ -389,8 +389,7 @@
             }
 
             const switchView = e => {
-                for (const button of VIEW_SELECTOR_BUTTONS)
-                    button.disabled = false;
+                enableViewSelector();
                 e.target.disabled = true;
                 ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = true;
 
@@ -427,7 +426,7 @@
 
             const enableViewSelector = () => {
                 for (const button of VIEW_SELECTOR_BUTTONS)
-                    button.disabled = false;
+                    if (!button.checked) button.disabled = false;
             }
 
             const rotateScene = () => {
