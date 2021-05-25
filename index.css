@@ -11,7 +11,7 @@
 }
 
 body {
-    perspective: 5000px;
+    perspective: 2000px;
 
     margin: 0;
     width: 100vw;
@@ -274,6 +274,8 @@ footer {
     background-image: linear-gradient(#373737 0%, #050505 75%);
 
     clip-path: polygon(30px 0, calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 30px 100%, 0 calc(100% - 30px), 0 30px);
+
+    backface-visibility: hidden;
 }
 
 .clock {
@@ -476,8 +478,8 @@ footer {
     justify-content: center;
     align-items: center;
 
-    width: 870px;
-    height: 370px;
+    width: 869px;
+    height: 369px;
 
     /* background-image: linear-gradient(#696969 0%, #050505 75%); */
     background-color: #373737;
