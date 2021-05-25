@@ -175,6 +175,57 @@ footer {
     box-shadow: inset 0 5px 5px #050505;
 }
 
+.view__selector input[disabled] ~ .overlay {
+    cursor: default;
+
+    box-shadow: inset 0 5px 5px #050505;
+}
+
+.rotate__scene__button__container {
+    position: fixed;
+
+    bottom: 32.5px;
+    left: 50px;
+    
+    padding: 5px;
+    width: 50px;
+    height: 50px;
+
+    background-image: linear-gradient(45deg, #ff05ff 50%, #ffff05 50%);
+
+    box-shadow: 0 5px 5px #050505;
+
+    border-radius: 50%;
+
+    transition: transform 5s linear, box-shadow .25s;
+}
+
+.rotate__scene__button__container button {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: #696969;
+
+    outline: none;
+    border: none;
+    border-radius: 50%;
+
+    transition: background-color .25s;
+}
+
+.rotate__scene__button__container button[disabled] {
+    background-color: #373737;
+}
+
+.rotate__scene__button__container button[disabled]:hover {
+    cursor: default;
+}
+
+.rotate__scene__button__container button:hover {
+    cursor: pointer;
+}
+
 .clock__container {
     position: relative;
     transform-style: preserve-3d;
@@ -608,7 +659,7 @@ footer {
 
     transform:
         translateZ(210px)
-        translateY(170px)
+        translateY(185px)
         rotateX(90deg);
 
     width: calc(750px * 2);
