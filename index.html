@@ -427,7 +427,7 @@
                 DOC_ROOT.style.setProperty("--currentY", `${currentY}deg`);
 
                 ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "rotateBorder 5s linear";
-                CLOCK_CONTAINER.style.animation = "rotateScene 5s linear";
+                CLOCK_CONTAINER.style.animation = "rotateScene 5s ease-in-out";
 
                 setTimeout(() => {
                     ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "none";

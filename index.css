@@ -462,8 +462,8 @@ footer {
     justify-content: center;
     align-items: center;
 
-    width: 869px;
-    height: 369px;
+    width: 870px;
+    height: 370px;
 
     /* background-image: linear-gradient(#696969 0%, #050505 75%); */
     background-color: #373737;
@@ -597,8 +597,8 @@ footer {
 .clock__corner__right {
     position: absolute;
     transform:
-        translateX(420px)
-        translateY(-169.5px)
+        translateX(419px)
+        translateY(-169px)
         translateZ(-50px)
         rotateX(90deg)
         rotateY(45deg)
@@ -616,8 +616,8 @@ footer {
 .clock__corner__left {
     position: absolute;
     transform:
-        translateX(-420px)
-        translateY(-169.5px)
+        translateX(-419px)
+        translateY(-169px)
         translateZ(-50px)
         rotateX(90deg)
         rotateY(-45deg)
@@ -635,8 +635,8 @@ footer {
 .clock__corner__bottom__left {
     position: absolute;
     transform:
-        translateX(-419.5px)
-        translateY(169.5px)
+        translateX(-419px)
+        translateY(169px)
         translateZ(-50px)
         rotateX(90deg)
         rotateY(-135deg)
