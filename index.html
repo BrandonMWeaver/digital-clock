@@ -222,37 +222,31 @@
                 }
             }
 
-            // result(current time) -> "hhmmss"
+            // result(current time) -> ["hhmmss", [ddd, mmm, d, y]]
             const getCurrentTime = () => {
-                const time = new Date().toLocaleString("en-US", {
+                let time = new Date().toLocaleString("en-US", {
                     hour12: true,
                     hour: "2-digit",
                     minute: "2-digit",
-                    second: "2-digit"
+                    second: "2-digit",
+                    weekday: "short",
+                    day: "2-digit",
+                    month: "short",
+                    year: "2-digit"
                 }).split(':');
+
+                const date = time[0].slice(0, -4).split(", ");
+                const separatedDayInfo = date[1].split(' ');
+                date.splice(2, 0, separatedDayInfo[1]);
+
+                time = [time[0].slice(-2), time[1], time[2]];
 
                 meridiem = time[time.length - 1].split(' ')[1];
                 setMeridiem(meridiem);
 
                 time[time.length - 1] = time[time.length - 1].split(' ')[0];
 
-                return time.join('');
-            }
-
-            // result(current date) -> [ddd, mmm, d, y]
-            const getCurrentDate = () => {
-                const date = new Date().toLocaleString("en-US", {
-                    weekday: "short",
-                    day: "2-digit",
-                    month: "short",
-                    year: "2-digit"
-                }).split(", ");
-
-                const separatedDayInfo = date[1].split(' ');
-                date[1] = separatedDayInfo[0];
-                date.splice(2, 0, separatedDayInfo[1]);
-
-                return date;
+                return [time.join(''), date];
             }
 
             // rgb -> [255, 255, 255]
@@ -356,7 +350,7 @@
 
             // renders each digit of the current time sequentially
             const update = (powerDown = false) => {
-                const currentTime = getCurrentTime();
+                const [currentTime, currentDate] = getCurrentTime();
 
                 for (let i = 0; i < currentTime.length; i++) {
                     if (powerDown || i === 0 && parseInt(currentTime[i]) === 0)
@@ -365,7 +359,6 @@
                         renderFromNumber(parseInt(currentTime[i]), DIGIT_BOXES[i]);
                 }
 
-                const currentDate = getCurrentDate();
                 for (let i = 0; i < currentDate.length; i++)
                     DATE_DISPLAY[i].innerText = currentDate[i];
             }
