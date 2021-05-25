@@ -203,14 +203,16 @@ footer {
     width: calc(100% - 10px);
     height: calc(100% - 10px);
 
-    background-image: linear-gradient(45deg, #696969, #050505);
+    background-image: linear-gradient(135deg, #696969, #050505);
 
     border-radius: 50%;
+
+    transition: transform 1s ease-in-out;
 }
 
 @keyframes rotateBorder {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { transform: rotate(var(--currentY)); }
+    100% { transform: rotate(calc(var(--currentY) + 360deg)); }
 }
 
 .rotate__scene__button__container button {

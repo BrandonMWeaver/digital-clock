@@ -140,7 +140,7 @@
         </footer>
         <div class="view__selector">
             <label class="radio__button__container">
-                <input id="0" type="radio" name="view-option" onclick="switchView(event)" checked="checked" />
+                <input id="0" type="radio" name="view-option" onclick="switchView(event)" checked disabled/>
                 <span class="overlay"></span>
             </label>
             <label class="radio__button__container">
@@ -389,16 +389,35 @@
             }
 
             const switchView = e => {
-                if (e.target.id === '0')
+                for (const button of VIEW_SELECTOR_BUTTONS)
+                    button.disabled = false;
+                e.target.disabled = true;
+                ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = true;
+
+                if (e.target.id === '0') {
                     CLOCK_CONTAINER.style.transform = "rotateX(0deg) rotateY(0deg)";
-                else if (e.target.id === '1')
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = "rotate(0deg)";
+                }
+                else if (e.target.id === '1') {
                     CLOCK_CONTAINER.style.transform = "rotateX(-20deg) rotateY(0deg)";
-                else if (e.target.id === '2')
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = "rotate(0deg)";
+                }
+                else if (e.target.id === '2') {
                     CLOCK_CONTAINER.style.transform = "rotateX(-45deg) rotateY(45deg)";
-                else if (e.target.id === '3')
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = "rotate(45deg)";
+                }
+                else if (e.target.id === '3') {
                     CLOCK_CONTAINER.style.transform = "rotateX(-45deg) rotateY(-45deg)";
-                else
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = "rotate(-45deg)";
+                }
+                else {
                     CLOCK_CONTAINER.style.transform = "rotateX(-20deg) rotateY(135deg)";
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = "rotate(135deg)";
+                }
+
+                setTimeout(() => {
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = false;
+                }, 1000);
             }
 
             const disableViewSelector = () => {
@@ -419,7 +438,7 @@
                 DOC_ROOT.style.setProperty("--currentX", `${currentX}deg`);
                 DOC_ROOT.style.setProperty("--currentY", `${currentY}deg`);
 
-                ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "rotateBorder 5s linear";
+                ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "rotateBorder 5s ease-in-out";
                 CLOCK_CONTAINER.style.animation = "rotateScene 5s ease-in-out";
 
                 setTimeout(() => {
