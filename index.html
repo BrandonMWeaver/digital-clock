@@ -161,10 +161,13 @@
             </label>
         </div>
         <div class="rotate__scene__button__container">
-            <button onclick="rotateScene()"></button>
+            <div class="rotate__scene__button__border">
+                <button onclick="rotateScene()"></button>
+            </div>
         </div>
         <script>
             /* constants -> */
+            const DOC_ROOT = document.querySelector(":root");
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const VIEW_SELECTOR_BUTTONS = document.querySelectorAll(".view__selector input");
             const ROTATE_SCENE_BUTTON_CONTAINER = document.querySelector(".rotate__scene__button__container");
@@ -416,34 +419,23 @@
             }
 
             const rotateScene = () => {
-                ROTATE_SCENE_BUTTON_CONTAINER.children[0].disabled = true;
+                ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = true;
                 disableViewSelector();
 
-                ROTATE_SCENE_BUTTON_CONTAINER.style.transform = "rotate(360deg)";
-                ROTATE_SCENE_BUTTON_CONTAINER.style.boxShadow = "none";
-
                 const [currentX, currentY] = getClockContainerTransformCoords();
+                DOC_ROOT.style.setProperty("--currentX", `${currentX}deg`);
+                DOC_ROOT.style.setProperty("--currentY", `${currentY}deg`);
 
-                CLOCK_CONTAINER.style.transition = "transform 5s linear";
-                CLOCK_CONTAINER.style.transform = `rotateX(${currentX}deg) rotateY(${currentY + 360}deg)`;
-
-                setTimeout(() => {
-                    ROTATE_SCENE_BUTTON_CONTAINER.style.transition = "none";
-                    ROTATE_SCENE_BUTTON_CONTAINER.style.transform = "rotate(0deg)";
-
-                    CLOCK_CONTAINER.style.transition = "none";
-                    CLOCK_CONTAINER.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
-                }, 5000);
+                ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "rotateBorder 5s linear";
+                CLOCK_CONTAINER.style.animation = "rotateScene 5s linear";
 
                 setTimeout(() => {
-                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].disabled = false;
-                    ROTATE_SCENE_BUTTON_CONTAINER.style.transition = "transform 5s linear";
-                    ROTATE_SCENE_BUTTON_CONTAINER.style.boxShadow = "0 5px 5px #050505";
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "none";
+                    CLOCK_CONTAINER.style.animation = "none";
 
-                    CLOCK_CONTAINER.style.transition = "transform 1s ease-in-out";
-
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = false;
                     enableViewSelector();
-                }, 6000);
+                }, 5000);
             }
 
             /* initial conditions -> */
