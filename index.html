@@ -133,19 +133,24 @@
                     <button onclick="changeDisplayColor(event)" style="background-color: #059bff;"></button>
                 </div>
             </header>
+            <div class="view__selector__panel">
+                <div class="view__selector">
+                    <button id="1" onclick="switchView(event)"></button>
+                    <button id="2" onclick="switchView(event)"></button>
+                    <button id="3" onclick="switchView(event)"></button>
+                    <button id="4" onclick="switchView(event)"></button>
+                    <button id="5" onclick="switchView(event)"></button>
+                    <button id="6" onclick="switchView(event)"></button>
+                    <button id="7" onclick="switchView(event)"></button>
+                    <button id="8" onclick="switchView(event)" disabled></button>
+                    <button id="9" onclick="switchView(event)"></button>
+                </div>
+            </div>
             <footer>
                 <div class="footer__panel">
                     <button class="on__off" onclick="powerDown()">
                         <div class="overlay"></div>
                     </button>
-                    <div class="view__selector x__axis">
-                        <button id="1" onclick="switchView(event)"></button>
-                        <button id="2" onclick="switchView(event)" disabled></button>
-                    </div>
-                    <div class="view__selector y__axis">
-                        <button id="3" onclick="switchView(event)"></button>
-                        <button id="4" onclick="switchView(event)"></button>
-                    </div>
                     <div class="rotate__scene__button__container">
                         <div class="rotate__scene__button__border">
                             <button onclick="rotateScene()"></button>
@@ -157,6 +162,11 @@
         <script>
             /* constants -> */
             const DOC_ROOT = document.querySelector(":root");
+
+            const KEYBOARD = { keys: [], disabled: false };
+            addEventListener("keydown", e => KEYBOARD.keys[e.keyCode] = true);
+            addEventListener("keyup", e => KEYBOARD.keys[e.keyCode] = false);
+
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const VIEW_SELECTOR_BUTTONS = document.querySelectorAll(".view__selector button");
             const ROTATE_SCENE_BUTTON_CONTAINER = document.querySelector(".rotate__scene__button__container");
@@ -167,6 +177,7 @@
             const DIGIT_BOXES = document.querySelectorAll(".digit__box");
             const DOTS = document.querySelectorAll(".dot");
             const MERIDIEMS = document.querySelectorAll(".meridiem");
+            const ENGRAVING = document.querySelector(".engraving");
             const CLOCK_REFRACTION = document.querySelector(".clock__refraction");
 
             const DIVIDER_COLOR = "#ffffff";
@@ -179,6 +190,7 @@
 
             /* variables -> */
             let on = true;
+            let selectedViewId = 8;
             let displayColor = "#ffffff";
             let offStateDisplayColor = "#ffffff";
             let currentlySelectedColorButton = COLOR_SELECTOR_BUTTONS[0];
@@ -335,10 +347,14 @@
 
             // result [x, y]
             const getSceneTransformCoords = () => {
-                return [
-                    parseInt(SCENE.style.transform.split("rotateX(")[1].split("deg)")[0]),
-                    parseInt(SCENE.style.transform.split("rotateY(")[1].split("deg)")[0])
+                let coords = [
+                    parseFloat(SCENE.style.transform.split("rotateX(")[1].split("turn)")[0]),
+                    parseFloat(SCENE.style.transform.split("rotateY(")[1].split("turn)")[0])
                 ];
+
+                coords[1] = coords[1] > .5 ? coords[1] - 1 : coords[1] < -.5 ? coords[1] + 1 : coords[1];
+
+                return coords;
             }
 
             // renders each digit of the current time sequentially
@@ -381,48 +397,91 @@
                 ++currentMessageIndex;
             }
 
+            // coords -> [currentX, currentY]
+            // sets the engraving text shadow property to mimic an engraving
+            const setEngravingShadow = coords => {
+                let shadowY = 0;
+                coords[0] < -.025 && coords[0] > -.475 ? shadowY = 2 : shadowY = -1;
+
+                if (coords[1] < 0)
+                    ENGRAVING.style.textShadow = `${coords[0] < -.25 ? -2 : 2}px ${shadowY}px 0 #1e1e1e`;
+                else
+                    ENGRAVING.style.textShadow = `${coords[0] < -.25 ? 2 : -2}px ${shadowY}px 0 #1e1e1e`;
+            }
+
             const switchView = e => {
                 e.target.disabled = true;
-
-                if (e.target.id === '1')
-                    VIEW_SELECTOR_BUTTONS[1].disabled = false;
-                else if (e.target.id === '2')
-                    VIEW_SELECTOR_BUTTONS[0].disabled = false;
-
+                disableViewSelector();
+                KEYBOARD.disabled = true;
                 ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = true;
 
-                const [currentX, currentY] = getSceneTransformCoords();
+                SCENE.style.transition = "transform 1s ease-in-out";
+                ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transition = "transform 1s ease-in-out";
 
-                if (e.target.id === '1' && currentX > -180) {
-                    SCENE.style.transform = `rotateX(${currentX - 15}deg) rotateY(${currentY}deg)`;
-                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = `rotate(${currentY}deg)`;
-                    VIEW_SELECTOR_BUTTONS[1].disabled = false;
+                let [x, y] = getSceneTransformCoords();
+
+                switch(parseInt(e.target.id)) {
+                    case 1:
+                        [x, y] = [-.125, .125];
+                        break;
+                    case 2:
+                        [x, y] = [-.125, 0];
+                        break;
+                    case 3:
+                        [x, y] = [-.125, -.125];
+                        break;
+                    case 4:
+                        [x, y] = [-.0625, .125];
+                        break;
+                    case 5:
+                        [x, y] = [-.0625, 0];
+                        break;
+                    case 6:
+                        [x, y] = [-.0625, -.125];
+                        break;
+                    case 7:
+                        [x, y] = [0, .125];
+                        break;
+                    case 8:
+                        [x, y] = [0, 0];
+                        break;
+                    case 9:
+                        [x, y] = [0, -.125];
                 }
-                else if (e.target.id === '2' && currentX < 0) {
-                    SCENE.style.transform = `rotateX(${currentX + 15}deg) rotateY(${currentY}deg)`;
-                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = `rotate(${currentY}deg)`;
-                    VIEW_SELECTOR_BUTTONS[0].disabled = false;
-                }
-                else if (e.target.id === '3') {
-                    SCENE.style.transform = `rotateX(${currentX}deg) rotateY(${currentY + 15}deg)`;
-                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = `rotate(${currentY + 15}deg)`;
-                }
-                else if (e.target.id === '4') {
-                    SCENE.style.transform = `rotateX(${currentX}deg) rotateY(${currentY - 15}deg)`;
-                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = `rotate(${currentY - 15}deg)`;
-                }
+
+                SCENE.style.transform = `rotateX(${x}turn) rotateY(${y}turn)`;
+                ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = `rotate(${y}turn)`;
 
                 setTimeout(() => {
-                    console.log(currentX)
-                    if (parseInt(e.target.id) > 2)
-                        e.target.disabled = false;
-                    else if (e.target.id === '1' && !(currentX - 15 === -75))
-                        e.target.disabled = false;
-                    else if (e.target.id === '2' && !(currentX + 15 === 0))
-                        e.target.disabled = false;
+                    SCENE.style.transition = "none";
+                    ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transition = "none";
 
+                    selectedViewId = parseInt(e.target.id);
+                    enableViewSelector();
+
+                    KEYBOARD.disabled = false;
                     ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = false;
-                }, 250);
+                }, 1000);
+            }
+
+            const updateScene = () => {
+                let coords = getSceneTransformCoords();
+
+                if (!KEYBOARD.disabled) {
+                    if (KEYBOARD.keys[38] && coords[0] !== -.5)
+                        coords[0] -= .0025;
+                    if (KEYBOARD.keys[40] && coords[0] !== 0)
+                        coords[0] += .0025;
+                    if (KEYBOARD.keys[37])
+                        coords[1] += .0025;
+                    if (KEYBOARD.keys[39])
+                        coords[1] -= .0025;
+                }
+
+                setEngravingShadow(coords);
+
+                SCENE.style.transform = `rotateX(${coords[0]}turn) rotateY(${coords[1]}turn)`;
+                ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.transform = `rotate(${coords[1]}turn)`;
             }
 
             const disableViewSelector = () => {
@@ -431,41 +490,51 @@
             }
 
             const enableViewSelector = () => {
-                const currentX = getSceneTransformCoords()[0];
-
-                for (const button of VIEW_SELECTOR_BUTTONS)
-                    if (button.id !== '1' && currentX !== 0 || button.id !== '2' && currentX !== -75 )
+                for (const button of VIEW_SELECTOR_BUTTONS) {
+                    if (selectedViewId != button.id)
                         button.disabled = false;
+                }
             }
 
             const rotateScene = () => {
                 ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = true;
                 disableViewSelector();
+                KEYBOARD.disabled = true;
 
                 const [currentX, currentY] = getSceneTransformCoords();
-                DOC_ROOT.style.setProperty("--currentX", `${currentX}deg`);
-                DOC_ROOT.style.setProperty("--currentY", `${currentY}deg`);
+                DOC_ROOT.style.setProperty("--currentX", `${currentX}turn`);
+                DOC_ROOT.style.setProperty("--currentY", `${currentY}turn`);
 
                 ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "rotateBorder 5s ease-in-out";
                 SCENE.style.animation = "rotateScene 5s ease-in-out";
 
+                if (currentX < -.025 && currentX > -.475)
+                    DOC_ROOT.style.setProperty("--engravingShadowYPos", "2px");
+                else
+                    DOC_ROOT.style.setProperty("--engravingShadowYPos", "-1px");
+
+                ENGRAVING.style.animation = "animateEngraving 5s ease-in-out";
+
                 setTimeout(() => {
                     ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "none";
                     SCENE.style.animation = "none";
+                    ENGRAVING.style.animation = "none";
 
                     ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = false;
                     enableViewSelector();
+                    KEYBOARD.disabled = false;
                 }, 5000);
             }
 
             /* initial conditions -> */
             setSelectedColorSelectorButton(currentlySelectedColorButton);
-            SCENE.style.transform = "rotateX(0deg) rotateY(0deg)";
+            SCENE.style.transform = "rotateX(0turn) rotateY(0turn)";
             CLOCK_REFRACTION.style.backgroundColor = displayColor;
             update();
-            let updateInterval = setInterval(update, 1000);
+            let updateClockInterval = setInterval(update, 1000);
             displayMessage();
             let displayMessageInterval = setInterval(displayMessage, 30000);
+            let updateSceneInterval = setInterval(updateScene, 20);
             /* <- initial conditions */
 
             // conditions for power down
@@ -475,7 +544,7 @@
                     return;
                 }
 
-                clearInterval(updateInterval);
+                clearInterval(updateClockInterval);
                 clearInterval(displayMessageInterval);
 
                 on = false;
@@ -502,7 +571,7 @@
                 on = true;
 
                 update();
-                updateInterval = setInterval(update, 1000);
+                updateClockInterval = setInterval(update, 1000);
 
                 MESSAGE.remove();
                 MESSAGE_DISPLAY.prepend(MESSAGE);
