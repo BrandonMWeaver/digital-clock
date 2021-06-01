@@ -133,6 +133,10 @@
                     <button onclick="changeDisplayColor(event)" style="background-color: #059bff;"></button>
                 </div>
             </header>
+            <div class="label" style="top: 110px; left: 50px;">
+                <div class="box__line left"></div>
+                <p>Color Selector</p>
+            </div>
             <div class="view__selector__panel">
                 <div class="view__selector">
                     <button id="1" onclick="switchView(event)"></button>
@@ -146,15 +150,27 @@
                     <button id="9" onclick="switchView(event)"></button>
                 </div>
             </div>
+            <div class="label" style="top: 285px; right: 25px;">
+                <p>View Selector</p>
+                <div class="box__line right"></div>
+            </div>
             <footer>
                 <div class="footer__panel">
                     <button class="on__off" onclick="powerDown()">
                         <div class="overlay"></div>
                     </button>
+                    <div class="label" style="top: 12.5px; left: calc(50% + 25px);">
+                        <div class="line"></div>
+                        <p>Power</p>
+                    </div>
                     <div class="rotate__scene__button__container">
                         <div class="rotate__scene__button__border">
                             <button onclick="rotateScene()"></button>
                         </div>
+                    </div>
+                    <div class="label" style="top: 12.5px; left: 75px;">
+                        <div class="line"></div>
+                        <p>Rotate</p>
                     </div>
                 </div>
             </footer>
@@ -401,7 +417,7 @@
             // sets the engraving text shadow property to mimic an engraving
             const setEngravingShadow = coords => {
                 let shadowY = 0;
-                coords[0] < -.025 && coords[0] > -.475 ? shadowY = 2 : shadowY = -1;
+                coords[0] < -.025 && coords[0] > -.475 ? shadowY = 1 : shadowY = -1;
 
                 if (coords[1] < 0)
                     ENGRAVING.style.textShadow = `${coords[0] < -.25 ? -2 : 2}px ${shadowY}px 0 #1e1e1e`;
@@ -509,7 +525,7 @@
                 SCENE.style.animation = "rotateScene 5s ease-in-out";
 
                 if (currentX < -.025 && currentX > -.475)
-                    DOC_ROOT.style.setProperty("--engravingShadowYPos", "2px");
+                    DOC_ROOT.style.setProperty("--engravingShadowYPos", "1px");
                 else
                     DOC_ROOT.style.setProperty("--engravingShadowYPos", "-1px");
 
