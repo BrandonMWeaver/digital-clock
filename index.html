@@ -207,6 +207,7 @@
             /* variables -> */
             let on = true;
             let selectedViewId = 8;
+            let viewSelectorLocked = false;
             let displayColor = "#ffffff";
             let offStateDisplayColor = "#ffffff";
             let currentlySelectedColorButton = COLOR_SELECTOR_BUTTONS[0];
@@ -428,6 +429,7 @@
             const switchView = e => {
                 e.target.disabled = true;
                 disableViewSelector();
+                viewSelectorLocked = true;
                 KEYBOARD.disabled = true;
                 ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = true;
 
@@ -474,6 +476,7 @@
 
                     selectedViewId = parseInt(e.target.id);
                     enableViewSelector();
+                    viewSelectorLocked = false;
 
                     KEYBOARD.disabled = false;
                     ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = false;
@@ -492,6 +495,30 @@
                         coords[1] += .0025;
                     if (KEYBOARD.keys[39])
                         coords[1] -= .0025;
+                }
+
+                if (!viewSelectorLocked) {
+                    for (const button of VIEW_SELECTOR_BUTTONS)
+                        button.disabled = false;
+
+                    if (coords[0] === -.125 && coords[1] === .125)
+                        VIEW_SELECTOR_BUTTONS[0].disabled = true;
+                    else if (coords[0] === -.125 && coords[1] === 0)
+                        VIEW_SELECTOR_BUTTONS[1].disabled = true;
+                    else if (coords[0] === -.125 && coords[1] === -.125)
+                        VIEW_SELECTOR_BUTTONS[2].disabled = true;
+                    else if (coords[0] === -.0625 && coords[1] === .125)
+                        VIEW_SELECTOR_BUTTONS[3].disabled = true;
+                    else if (coords[0] === -.0625 && coords[1] === 0)
+                        VIEW_SELECTOR_BUTTONS[4].disabled = true;
+                    else if (coords[0] === -.0625 && coords[1] === -.125)
+                        VIEW_SELECTOR_BUTTONS[5].disabled = true;
+                    else if (coords[0] === 0 && coords[1] === .125)
+                        VIEW_SELECTOR_BUTTONS[6].disabled = true;
+                    else if (coords[0] === 0 && coords[1] === 0)
+                        VIEW_SELECTOR_BUTTONS[7].disabled = true;
+                    else if (coords[0] === 0 && coords[1] === -.125)
+                    VIEW_SELECTOR_BUTTONS[8].disabled = true;
                 }
 
                 setEngravingShadow(coords);
@@ -515,6 +542,7 @@
             const rotateScene = () => {
                 ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = true;
                 disableViewSelector();
+                viewSelectorLocked = true;
                 KEYBOARD.disabled = true;
 
                 const [currentX, currentY] = getSceneTransformCoords();
@@ -538,6 +566,7 @@
 
                     ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = false;
                     enableViewSelector();
+                    viewSelectorLocked = false;
                     KEYBOARD.disabled = false;
                 }, 5000);
             }
