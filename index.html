@@ -552,17 +552,24 @@
                 ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "rotateBorder 5s ease-in-out";
                 SCENE.style.animation = "rotateScene 5s ease-in-out";
 
+                let engravingShadowYPos = "-1px";
                 if (currentX < -.025 && currentX > -.475)
-                    DOC_ROOT.style.setProperty("--engravingShadowYPos", "1px");
-                else
-                    DOC_ROOT.style.setProperty("--engravingShadowYPos", "-1px");
+                    engravingShadowYPos = "1px";
 
-                ENGRAVING.style.animation = "animateEngraving 5s ease-in-out";
+                let engravingAnimationOffset = (100 - (100 * Math.abs((currentY + .5) / 1))) * .01;
+                if (engravingAnimationOffset < .1)
+                    engravingAnimationOffset += .1;
+                else if (engravingAnimationOffset > .9)
+                    engravingAnimationOffset -= .1;
+
+                ENGRAVING.animate([
+                    { textShadow: `-2px ${engravingShadowYPos} 0 #1e1e1e`, offset: engravingAnimationOffset - .1, easing: "ease-in-out" },
+                    { textShadow: `2px ${engravingShadowYPos} 0 #1e1e1e`, offset: engravingAnimationOffset + .1, easing: "ease-in-out" }
+                ], 5000);
 
                 setTimeout(() => {
                     ROTATE_SCENE_BUTTON_CONTAINER.children[0].style.animation = "none";
                     SCENE.style.animation = "none";
-                    ENGRAVING.style.animation = "none";
 
                     ROTATE_SCENE_BUTTON_CONTAINER.children[0].children[0].disabled = false;
                     enableViewSelector();

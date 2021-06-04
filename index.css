@@ -9,8 +9,6 @@
     --currentX: 0turn;
     --currentY: 0turn;
 
-    --engravingShadowYPos: -1px;
-
     --clockShadeXD: #0f0f0f;
     --clockShadeDD: #1e1e1e;
     --clockShadeLD: #2d2d2d;
@@ -575,11 +573,6 @@ footer {
     user-select: none;
 
     transition: text-shadow .5s ease-in-out;
-}
-
-@keyframes animateEngraving {
-    40% { text-shadow: -2px var(--engravingShadowYPos) 0 #1e1e1e; }
-    60% { text-shadow: 2px var(--engravingShadowYPos) 0 #1e1e1e; }
 }
 
 .screw {
