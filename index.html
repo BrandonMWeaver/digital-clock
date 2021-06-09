@@ -202,6 +202,7 @@
                 "Built with HTML, CSS, and plain old JavaScript",
                 "Thanks for checking it out!"
             ];
+            const BEEP = new Audio("./beep.wav");
             /* <- constants */
 
             /* variables -> */
@@ -213,6 +214,8 @@
             let currentlySelectedColorButton = COLOR_SELECTOR_BUTTONS[0];
             let meridiem = "AM";
             let currentMessageIndex = 0;
+            let alarmTime = "120000 AM";
+            let alarmSet = false;
             /* <- variables */
 
             // color dividers
@@ -262,6 +265,9 @@
                 date.splice(2, 0, separatedDayInfo[1]);
 
                 time = [time[0].slice(-2), time[1], time[2]];
+
+                if (time.join('') === alarmTime && alarmSet)
+                    enableAlarm();
 
                 meridiem = time[time.length - 1].split(' ')[1];
                 setMeridiem(meridiem);
@@ -587,7 +593,21 @@
             displayMessage();
             let displayMessageInterval = setInterval(displayMessage, 30000);
             let updateSceneInterval = setInterval(updateScene, 20);
+            let alarmInterval;
             /* <- initial conditions */
+
+            const setAlarm = time => {
+                alarmTime = time;
+                alarmSet = true;
+            }
+
+            const enableAlarm = () => {
+                alarmInterval = setInterval(() => BEEP.play(), 250);
+            }
+
+            const disableAlarm = () => {
+                clearInterval(alarmInterval);
+            }
 
             // conditions for power down
             const powerDown = () => {
