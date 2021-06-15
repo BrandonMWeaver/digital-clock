@@ -154,6 +154,68 @@
                 <p>View Selector</p>
                 <div class="box__line right"></div>
             </div>
+            <div class="alarm__panel">
+                <div class="digit__box">
+                    <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                    <div class="digit__section top" style="top: 50%;"></div>
+                    <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                    <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                    <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                    <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                    <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                </div>
+                <div class="digit__box">
+                    <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                    <div class="digit__section top" style="top: 50%;"></div>
+                    <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                    <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                    <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                    <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                    <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                </div>
+                <div class="buttons__container">
+                    <button class="time__button" onclick="alarmHourUp()">
+                        <div class="overlay top"></div>
+                    </button>
+                    <button class="time__button" onclick="alarmHourDown()">
+                        <div class="overlay bottom"></div>
+                    </button>
+                </div>
+                <div class="digit__box">
+                    <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                    <div class="digit__section top" style="top: 50%;"></div>
+                    <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                    <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                    <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                    <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                    <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                </div>
+                <div class="digit__box">
+                    <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
+                    <div class="digit__section top" style="top: 50%;"></div>
+                    <div class="digit__section right" style="top: 5px; border-top-right-radius: 10px;"></div>
+                    <div class="digit__section right" style="bottom: 5px; border-bottom-right-radius: 10px;"></div>
+                    <div class="digit__section bottom" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></div>
+                    <div class="digit__section left" style="bottom: 5px; border-bottom-left-radius: 10px;"></div>
+                    <div class="digit__section left" style="top: 5px; border-top-left-radius: 10px;"></div>
+                </div>
+                <div class="buttons__container">
+                    <button class="time__button" onclick="alarmMinuteUp()">
+                        <div class="overlay top"></div>
+                    </button>
+                    <button class="time__button" onclick="alarmMinuteDown()">
+                        <div class="overlay bottom"></div>
+                    </button>
+                </div>
+                <div class="buttons__container" style="margin-left: 10px;">
+                    <button class="meridiem__button">A.M.</button>
+                    <button class="meridiem__button">P.M.</button>
+                </div>
+                <div class="buttons__container" style="margin-left: 10px;">
+                    <button class="alarm__on__off" onclick="changeAlarmState()"></button>
+                    <button class="disable__alarm" onclick="disableAlarm()"></button>
+                </div>
+            </div>
             <footer>
                 <div class="footer__panel">
                     <button class="on__off" onclick="powerDown()">
@@ -185,12 +247,17 @@
 
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const VIEW_SELECTOR_BUTTONS = document.querySelectorAll(".view__selector button");
+            const ALARM_DIGIT_BOXES = document.querySelectorAll(".alarm__panel .digit__box");
+            const ALARM_BUTTONS = document.querySelectorAll(".alarm__panel .time__button");
+            const MERIDIEM_BUTTONS = document.querySelectorAll(".alarm__panel .meridiem__button");
+            const ALARM_ON_OFF_BUTTON = document.querySelector(".alarm__panel .alarm__on__off");
+            const DISABLE_ALARM_BUTTON = document.querySelector(".alarm__panel .disable__alarm");
             const ROTATE_SCENE_BUTTON_CONTAINER = document.querySelector(".rotate__scene__button__container");
             const SCENE = document.querySelector(".scene");
             const MESSAGE_DISPLAY = document.querySelector(".message__display");
             const MESSAGE = MESSAGE_DISPLAY.children[0];
             const DATE_DISPLAY = document.querySelectorAll(".date__display p");
-            const DIGIT_BOXES = document.querySelectorAll(".digit__box");
+            const DISPLAY_DIGIT_BOXES = document.querySelectorAll(".display .digit__box");
             const DOTS = document.querySelectorAll(".dot");
             const MERIDIEMS = document.querySelectorAll(".meridiem");
             const ENGRAVING = document.querySelector(".engraving");
@@ -216,6 +283,7 @@
             let currentMessageIndex = 0;
             let alarmTime = "120000 AM";
             let alarmSet = false;
+            let alarmEnabled = false;
             /* <- variables */
 
             // color dividers
@@ -266,7 +334,7 @@
 
                 time = [time[0].slice(-2), time[1], time[2]];
 
-                if (time.join('') === alarmTime && alarmSet)
+                if (on && alarmSet && time.join('') === alarmTime)
                     enableAlarm();
 
                 meridiem = time[time.length - 1].split(' ')[1];
@@ -386,13 +454,20 @@
 
                 for (let i = 0; i < currentTime.length; i++) {
                     if (powerDown || i === 0 && parseInt(currentTime[i]) === 0)
-                        renderFromNumber(10, DIGIT_BOXES[i]);
+                        renderFromNumber(10, DISPLAY_DIGIT_BOXES[i]);
                     else
-                        renderFromNumber(parseInt(currentTime[i]), DIGIT_BOXES[i]);
+                        renderFromNumber(parseInt(currentTime[i]), DISPLAY_DIGIT_BOXES[i]);
                 }
 
                 for (let i = 0; i < currentDate.length; i++)
                     DATE_DISPLAY[i].innerText = currentDate[i];
+
+                for (let i = 0; i < ALARM_DIGIT_BOXES.length; i++) {
+                    if (powerDown || i === 0 && parseInt(alarmTime.split(' ')[0][i]) === 0)
+                        renderFromNumber(10, ALARM_DIGIT_BOXES[i]);
+                    else
+                        renderFromNumber(parseInt(alarmTime.split(' ')[0][i]), ALARM_DIGIT_BOXES[i]);
+                }
             }
 
             // changes the display color of the digital clock to the background color of the element which raised the event
@@ -584,8 +659,34 @@
                 }, 5000);
             }
 
+            const illuminateAlarmButton = event => {
+                if (event.target.type === "submit")
+                    event.target.children[0].style.backgroundColor = "#fff";
+                else
+                    event.target.style.backgroundColor = "#fff";
+            }
+
+            const setAlarmMeridiem = event => {
+                for (const button of MERIDIEM_BUTTONS)
+                    button.style.color = "#ffffff05";
+                event.target.style.color = "#fff";
+
+                alarmTime = `${alarmTime.slice(0, 7)}${event.target.innerText.split('.').join('')}`;
+            }
+
             /* initial conditions -> */
             setSelectedColorSelectorButton(currentlySelectedColorButton);
+            for (const button of ALARM_BUTTONS) {
+                button.addEventListener("mousedown", illuminateAlarmButton);
+                button.addEventListener("mouseup", () => button.children[0].style.backgroundColor = "#ffffff05");
+            }
+            MERIDIEM_BUTTONS[0].style.color = "#ffffff";
+            MERIDIEM_BUTTONS[1].style.color = "#ffffff05";
+            for (const button of MERIDIEM_BUTTONS)
+                button.addEventListener("click", setAlarmMeridiem);
+            ALARM_ON_OFF_BUTTON.style.backgroundColor = "#ffffff05";
+            DISABLE_ALARM_BUTTON.disabled = true;
+            DISABLE_ALARM_BUTTON.style.backgroundColor = "#ff050505";
             SCENE.style.transform = "rotateX(0turn) rotateY(0turn)";
             CLOCK_REFRACTION.style.backgroundColor = displayColor;
             update();
@@ -596,17 +697,76 @@
             let alarmInterval;
             /* <- initial conditions */
 
-            const setAlarm = time => {
-                alarmTime = time;
-                alarmSet = true;
+            const changeAlarmState = () => {
+                if (on) {
+                    alarmSet = !alarmSet;
+
+                    ALARM_ON_OFF_BUTTON.style.backgroundColor = alarmSet ? "#fff" : "#ffffff05";
+                }
             }
 
             const enableAlarm = () => {
-                alarmInterval = setInterval(() => BEEP.play(), 250);
+                alarmEnabled = true;
+                DISABLE_ALARM_BUTTON.disabled = false;
+                alarmInterval = setInterval(() => {
+                    BEEP.play();
+                    DISABLE_ALARM_BUTTON.style.backgroundColor = DISABLE_ALARM_BUTTON.style.backgroundColor === "rgba(255, 5, 5, 0.02)" ? "#ff0505" : "#ff050505";
+                }, 250);
             }
 
             const disableAlarm = () => {
+                alarmEnabled = false;
+                DISABLE_ALARM_BUTTON.disabled = true;
+                DISABLE_ALARM_BUTTON.style.backgroundColor = "#ff050505";
                 clearInterval(alarmInterval);
+            }
+
+            const alarmHourUp = () => {
+                if (on) {
+                    let newHour = parseInt(alarmTime.slice(0, 2)) + 1;
+                    if (newHour > 12)
+                        newHour = 1;
+
+                    alarmTime = `${newHour < 10 ? `0${newHour}` : newHour}${alarmTime.slice(2, 9)}`;
+
+                    update();
+                }
+            }
+
+            const alarmHourDown = () => {
+                if (on) {
+                    let newHour = parseInt(alarmTime.slice(0, 2)) - 1;
+                    if (newHour < 1)
+                        newHour = 12;
+
+                    alarmTime = `${newHour < 10 ? `0${newHour}` : newHour}${alarmTime.slice(2, 9)}`;
+
+                    update();
+                }
+            }
+
+            const alarmMinuteUp = () => {
+                if (on) {
+                    let newMinute = parseInt(alarmTime.slice(2, 4)) + 1;
+                    if (newMinute > 59)
+                        newMinute = 0;
+
+                    alarmTime = `${alarmTime.slice(0, 2)}${newMinute < 10 ? `0${newMinute}` : newMinute}${alarmTime.slice(4, 9)}`;
+
+                    update();
+                }
+            }
+
+            const alarmMinuteDown = () => {
+                if (on) {
+                    let newMinute = parseInt(alarmTime.slice(2, 4)) - 1;
+                    if (newMinute < 0)
+                        newMinute = 59;
+                    
+                    alarmTime = `${alarmTime.slice(0, 2)}${newMinute < 10 ? `0${newMinute}` : newMinute}${alarmTime.slice(4, 9)}`;
+
+                    update();
+                }
             }
 
             // conditions for power down
@@ -621,6 +781,8 @@
 
                 on = false;
                 offStateDisplayColor = displayColor;
+                if (alarmEnabled)
+                    disableAlarm();
 
                 update(true);
                 MESSAGE.style.color = "#05050500";
@@ -631,6 +793,12 @@
                 for (const section of DATE_DISPLAY)
                     section.style.color = "#050505";
                 CLOCK_REFRACTION.style.backgroundColor = "#05050500";
+
+                for (const button of ALARM_BUTTONS)
+                    button.removeEventListener("mousedown", illuminateAlarmButton);
+                for (const button of MERIDIEM_BUTTONS)
+                    button.style.color = "#ffffff05";
+                ALARM_ON_OFF_BUTTON.style.backgroundColor = "#ffffff05";
             }
 
             // conditions for power up
@@ -657,6 +825,14 @@
 
                 for (const section of DATE_DISPLAY)
                     section.style.color = "#ffffff9b";
+
+                for (const button of ALARM_BUTTONS)
+                    button.addEventListener("mousedown", illuminateAlarmButton)
+                for (const button of MERIDIEM_BUTTONS)
+                    if (button.innerText.split('.').join('') === alarmTime.slice(-2))
+                        button.style.color = "#fff";
+                if (alarmSet)
+                    ALARM_ON_OFF_BUTTON.style.backgroundColor = "#fff";
             }
         </script>
     </body>

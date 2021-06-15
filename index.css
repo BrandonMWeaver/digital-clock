@@ -76,6 +76,83 @@ header {
     cursor: default;
 }
 
+.alarm__panel {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+
+    position: absolute;
+    bottom: 115px;
+    left: 15px;
+
+    width: 400px;
+    height: 150px;
+}
+
+.alarm__panel .buttons__container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.alarm__panel button {
+    position: relative;
+
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+
+    outline: none;
+    border: none;
+
+    background-color: #05050500;
+}
+
+.alarm__panel button .overlay {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+
+    background-color: #ffffff05;
+
+    transition: background-color .25s;
+}
+
+.alarm__panel button .overlay.top {
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.alarm__panel button .overlay.bottom {
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.alarm__panel button:hover {
+    cursor: pointer;
+}
+
+.alarm__panel .meridiem__button {
+    font-family: monospace;
+    font-size: 10px;
+
+    user-select: none;
+
+    transition: color .25s;
+}
+
+.alarm__panel .alarm__on__off, .alarm__panel .disable__alarm {
+    border-radius: 50%;
+
+    transition: background-color .25s;
+}
+
+.alarm__panel .disable__alarm[disabled] {
+    cursor: default;
+}
+
 footer {
     position: fixed;
     bottom: 25px;
