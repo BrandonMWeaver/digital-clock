@@ -137,7 +137,7 @@
                 <div class="box__line left"></div>
                 <p>Color Selector</p>
             </div>
-            <div class="view__selector__panel">
+            <div class="view__selector__panel" style="right: 25px;">
                 <div class="view__selector">
                     <button id="1" onclick="switchView(event)"></button>
                     <button id="2" onclick="switchView(event)"></button>
@@ -150,7 +150,7 @@
                     <button id="9" onclick="switchView(event)"></button>
                 </div>
             </div>
-            <div class="label" style="top: 285px; right: 25px;">
+            <div class="label" style="top: 285px; right: 25px; transition: right .5s;">
                 <p>View Selector</p>
                 <div class="box__line right"></div>
             </div>
@@ -236,7 +236,8 @@
                     </div>
                 </div>
             </footer>
-            <button class="hide__show top" style="top: 100px; right: calc(50% - 5px); transform: rotate(180deg); transition: top .5s;" onclick="hideOrShowColorSelector()"></button>
+            <button class="hide__show" style="top: 100px; right: calc(50% - 5px); transform: rotate(180deg); transition: top .5s;" onclick="hideOrShowColorSelector()"></button>
+            <button class="hide__show" style="top: 200px; right: 175px; transform: rotate(-90deg); transition: right .5s;" onclick="hideOrShowViewSelector()"></button>
         </div>
         <script>
             /* constants -> */
@@ -250,6 +251,7 @@
             const LABELS = document.querySelectorAll(".label");
             const HIDE_SHOW_BUTTONS = document.querySelectorAll(".hide__show");
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
+            const VIEW_SELECTOR_PANEL = document.querySelector(".view__selector__panel");
             const VIEW_SELECTOR_BUTTONS = document.querySelectorAll(".view__selector button");
             const ALARM_DIGIT_BOXES = document.querySelectorAll(".alarm__panel .digit__box");
             const ALARM_BUTTONS = document.querySelectorAll(".alarm__panel .time__button");
@@ -302,6 +304,21 @@
                     HIDE_SHOW_BUTTONS[0].style.top = "100px";
                     HIDE_SHOW_BUTTONS[0].style.transform = "rotate(180deg)";
                     LABELS[0].style.top = "110px";
+                }
+            }
+
+            const hideOrShowViewSelector = () => {
+                if (VIEW_SELECTOR_PANEL.style.right === "25px") {
+                    VIEW_SELECTOR_PANEL.style.right = "-150px";
+                    HIDE_SHOW_BUTTONS[1].style.right = "0";
+                    HIDE_SHOW_BUTTONS[1].style.transform = "rotate(90deg)";
+                    LABELS[1].style.right = "10px";
+                }
+                else {
+                    VIEW_SELECTOR_PANEL.style.right = "25px";
+                    HIDE_SHOW_BUTTONS[1].style.right = "175px";
+                    HIDE_SHOW_BUTTONS[1].style.transform = "rotate(-90deg)";
+                    LABELS[1].style.right = "25px";
                 }
             }
 
