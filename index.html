@@ -124,7 +124,7 @@
                     <div class="radius"></div>
                 </div>
             </div>
-            <header>
+            <header style="top: 25px;">
                 <div class="color__selector">
                     <button onclick="changeDisplayColor(event)" style="background-color: #ffffff;"></button>
                     <button onclick="changeDisplayColor(event)" style="background-color: #ff3705;"></button>
@@ -133,7 +133,7 @@
                     <button onclick="changeDisplayColor(event)" style="background-color: #059bff;"></button>
                 </div>
             </header>
-            <div class="label" style="top: 110px; left: 50px;">
+            <div class="label" style="top: 110px; left: 50px; transition: top .5s;">
                 <div class="box__line left"></div>
                 <p>Color Selector</p>
             </div>
@@ -236,6 +236,7 @@
                     </div>
                 </div>
             </footer>
+            <button class="hide__show top" style="top: 100px; right: calc(50% - 5px); transform: rotate(180deg); transition: top .5s;" onclick="hideOrShowColorSelector()"></button>
         </div>
         <script>
             /* constants -> */
@@ -245,6 +246,9 @@
             addEventListener("keydown", e => KEYBOARD.keys[e.keyCode] = true);
             addEventListener("keyup", e => KEYBOARD.keys[e.keyCode] = false);
 
+            const HEADER = document.querySelector("header");
+            const LABELS = document.querySelectorAll(".label");
+            const HIDE_SHOW_BUTTONS = document.querySelectorAll(".hide__show");
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const VIEW_SELECTOR_BUTTONS = document.querySelectorAll(".view__selector button");
             const ALARM_DIGIT_BOXES = document.querySelectorAll(".alarm__panel .digit__box");
@@ -286,9 +290,19 @@
             let alarmEnabled = false;
             /* <- variables */
 
-            // color dividers
-            for (const dot of DOTS) {
-                dot.style.backgroundColor = DIVIDER_COLOR;
+            const hideOrShowColorSelector = () => {
+                if (HEADER.style.top === "25px") {
+                    HEADER.style.top = "-75px";
+                    HIDE_SHOW_BUTTONS[0].style.top = "0";
+                    HIDE_SHOW_BUTTONS[0].style.transform = "rotate(0deg)";
+                    LABELS[0].style.top = "10px";
+                }
+                else {
+                    HEADER.style.top = "25px";
+                    HIDE_SHOW_BUTTONS[0].style.top = "100px";
+                    HIDE_SHOW_BUTTONS[0].style.transform = "rotate(180deg)";
+                    LABELS[0].style.top = "110px";
+                }
             }
 
             // colorSelectorButton -> removes the box shadow of this button while setting the box shadow of all other color selector buttons
@@ -675,6 +689,9 @@
             }
 
             /* initial conditions -> */
+            for (const dot of DOTS) {
+                dot.style.backgroundColor = DIVIDER_COLOR;
+            }
             setSelectedColorSelectorButton(currentlySelectedColorButton);
             for (const button of ALARM_BUTTONS) {
                 button.addEventListener("mousedown", illuminateAlarmButton);

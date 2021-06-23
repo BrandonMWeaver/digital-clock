@@ -44,6 +44,8 @@ header {
     background-color: #373737;
 
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 25px 100%, 0 calc(100% - 25px));
+
+    transition: top .5s;
 }
 
 .color__selector {
@@ -263,54 +265,10 @@ footer {
     cursor: pointer;
 }
 
-.arrow {
-    position: absolute;
-
-    width: 10px;
-    height: 10px;
-
-    border-radius: 50%;
-
-    background-color: #9b9b9b;
-}
-
-.arrow.direction__up {
-    top: 5px;
-    left: calc(50% - 5px);
-}
-
-.arrow.direction__down {
-    bottom: 5px;
-    left: calc(50% - 5px);
-}
-
-.arrow.direction__right {
-    top: calc(50% - 5px);
-    right: 5px;
-}
-
-.arrow.direction__left {
-    top: calc(50% - 5px);
-    left: 5px;
-}
-
 .view__selector button[disabled] {
     cursor: default;
 
     box-shadow: inset 0 5px 5px #050505;
-}
-
-.view__selector button[disabled] .arrow.direction__up {
-    top: 10px;
-}
-
-.view__selector button[disabled] .arrow.direction__down {
-    bottom: 0;
-}
-
-.view__selector button[disabled] .arrow.direction__right,
-.view__selector button[disabled] .arrow.direction__left {
-    top: 50%;
 }
 
 .rotate__scene__button__container {
@@ -724,6 +682,8 @@ footer {
 .clock__corner {
     width: 100px;
     height: 43px;
+
+    background-clip: content-box;
 }
 
 .clock__corner.top__right {
@@ -735,8 +695,6 @@ footer {
         rotateZ(90deg);
 
     background-color: var(--clockShadeDD);
-
-    background-clip: content-box;
 }
 
 .clock__corner.top__left {
@@ -748,8 +706,6 @@ footer {
         rotateZ(90deg);
 
     background-color: var(--clockShadeXL);
-
-    background-clip: content-box;
 }
 
 .clock__corner.bottom__right {
@@ -761,9 +717,6 @@ footer {
         rotateZ(90deg);
 
     background-color: #050505;
-    /* background-color: var(--clockShadeXD); */
-
-    background-clip: content-box;
 }
 
 .clock__corner.bottom__left {
@@ -775,8 +728,6 @@ footer {
         rotateZ(90deg);
 
     background-color: var(--clockShadeXD);
-
-    background-clip: content-box;
 }
 
 .clock__refraction {
@@ -857,4 +808,22 @@ footer {
     color: #fff;
 
     user-select: none;
+}
+
+button.hide__show {
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    background-color: #fff;
+
+    outline: none;
+    border: none;
+
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.hide__show:hover {
+    cursor: pointer;
 }
