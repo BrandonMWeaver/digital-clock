@@ -216,7 +216,7 @@
                     <button class="disable__alarm" onclick="disableAlarm()"></button>
                 </div>
             </div>
-            <footer>
+            <footer style="bottom: 25px;">
                 <div class="footer__panel">
                     <button class="on__off" onclick="powerDown()">
                         <div class="overlay"></div>
@@ -239,6 +239,7 @@
             <button class="hide__show" style="top: 100px; right: calc(50% - 5px); transform: rotate(180deg); transition: top .5s;" onclick="hideOrShowColorSelector()"></button>
             <button class="hide__show" style="top: 195px; right: 175px; transform: rotate(-90deg); transition: right .5s;" onclick="hideOrShowViewSelector()"></button>
             <button class="hide__show" style="bottom: 185px; left: 475px; transform: rotate(90deg); transition: left .5s;" onclick="hideOrShowAlarm()"></button>
+            <button class="hide__show" style="bottom: 100px; left: calc(50% - 5px); transform: rotate(0deg); transition: bottom .5s;" onclick="hideOrShowPowerPanel()"></button>
         </div>
         <script>
             /* constants -> */
@@ -249,6 +250,7 @@
             addEventListener("keyup", e => KEYBOARD.keys[e.keyCode] = false);
 
             const HEADER = document.querySelector("header");
+            const FOOTER = document.querySelector("footer");
             const LABELS = document.querySelectorAll(".label");
             const HIDE_SHOW_BUTTONS = document.querySelectorAll(".hide__show");
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
@@ -334,6 +336,19 @@
                     ALARM_PANEL.style.left = "15px";
                     HIDE_SHOW_BUTTONS[2].style.left = "475px";
                     HIDE_SHOW_BUTTONS[2].style.transform = "rotate(90deg)";
+                }
+            }
+
+            const hideOrShowPowerPanel = () => {
+                if (FOOTER.style.bottom === "25px") {
+                    FOOTER.style.bottom = "-75px";
+                    HIDE_SHOW_BUTTONS[3].style.bottom = "0";
+                    HIDE_SHOW_BUTTONS[3].style.transform = "rotate(180deg)";
+                }
+                else {
+                    FOOTER.style.bottom = "25px";
+                    HIDE_SHOW_BUTTONS[3].style.bottom = "100px";
+                    HIDE_SHOW_BUTTONS[3].style.transform = "rotate(0deg)";
                 }
             }
 
