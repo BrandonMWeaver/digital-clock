@@ -154,7 +154,7 @@
                 <p>View Selector</p>
                 <div class="box__line right"></div>
             </div>
-            <div class="alarm__panel">
+            <div class="alarm__panel" style="left: 15px;">
                 <div class="digit__box">
                     <div class="digit__section top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"></div>
                     <div class="digit__section top" style="top: 50%;"></div>
@@ -237,7 +237,8 @@
                 </div>
             </footer>
             <button class="hide__show" style="top: 100px; right: calc(50% - 5px); transform: rotate(180deg); transition: top .5s;" onclick="hideOrShowColorSelector()"></button>
-            <button class="hide__show" style="top: 200px; right: 175px; transform: rotate(-90deg); transition: right .5s;" onclick="hideOrShowViewSelector()"></button>
+            <button class="hide__show" style="top: 195px; right: 175px; transform: rotate(-90deg); transition: right .5s;" onclick="hideOrShowViewSelector()"></button>
+            <button class="hide__show" style="bottom: 185px; left: 475px; transform: rotate(90deg); transition: left .5s;" onclick="hideOrShowAlarm()"></button>
         </div>
         <script>
             /* constants -> */
@@ -253,6 +254,7 @@
             const COLOR_SELECTOR_BUTTONS = document.querySelectorAll(".color__selector button");
             const VIEW_SELECTOR_PANEL = document.querySelector(".view__selector__panel");
             const VIEW_SELECTOR_BUTTONS = document.querySelectorAll(".view__selector button");
+            const ALARM_PANEL = document.querySelector(".alarm__panel");
             const ALARM_DIGIT_BOXES = document.querySelectorAll(".alarm__panel .digit__box");
             const ALARM_BUTTONS = document.querySelectorAll(".alarm__panel .time__button");
             const MERIDIEM_BUTTONS = document.querySelectorAll(".alarm__panel .meridiem__button");
@@ -319,6 +321,19 @@
                     HIDE_SHOW_BUTTONS[1].style.right = "175px";
                     HIDE_SHOW_BUTTONS[1].style.transform = "rotate(-90deg)";
                     LABELS[1].style.right = "25px";
+                }
+            }
+
+            const hideOrShowAlarm = () => {
+                if (ALARM_PANEL.style.left === "15px") {
+                    ALARM_PANEL.style.left = "-460px";
+                    HIDE_SHOW_BUTTONS[2].style.left = "0";
+                    HIDE_SHOW_BUTTONS[2].style.transform = "rotate(-90deg)";
+                }
+                else {
+                    ALARM_PANEL.style.left = "15px";
+                    HIDE_SHOW_BUTTONS[2].style.left = "475px";
+                    HIDE_SHOW_BUTTONS[2].style.transform = "rotate(90deg)";
                 }
             }
 

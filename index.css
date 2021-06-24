@@ -89,8 +89,10 @@ header {
     bottom: 115px;
     left: 15px;
 
-    width: 400px;
+    width: 450px;
     height: 150px;
+
+    transition: left .5s;
 }
 
 .alarm__panel .buttons__container {
