@@ -37,7 +37,7 @@ body {
 }
 
 header {
-    position: fixed;
+    position: absolute;
     top: 25px;
     left: 25px;
 
@@ -160,7 +160,7 @@ header {
 }
 
 footer {
-    position: fixed;
+    position: absolute;
     bottom: 25px;
     right: 25px;
 
