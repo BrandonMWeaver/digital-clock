@@ -236,10 +236,18 @@
                     </div>
                 </div>
             </footer>
-            <button class="hide__show" style="top: 100px; right: calc(50% - 5px); transform: rotate(180deg); transition: top .5s;" onclick="hideOrShowColorSelector()"></button>
-            <button class="hide__show" style="top: 195px; right: 175px; transform: rotate(-90deg); transition: right .5s;" onclick="hideOrShowViewSelector()"></button>
-            <button class="hide__show" style="bottom: 185px; left: 475px; transform: rotate(90deg); transition: left .5s;" onclick="hideOrShowAlarm()"></button>
-            <button class="hide__show" style="bottom: 100px; left: calc(50% - 5px); transform: rotate(0deg); transition: bottom .5s;" onclick="hideOrShowPowerPanel()"></button>
+            <button class="hide__show" style="top: 100px; right: calc(50% - 15px); transform: rotate(180deg); transition: top .5s;" onclick="hideOrShowColorSelector()">
+                <div class="overlay"></div>
+            </button>
+            <button class="hide__show" style="top: 185px; right: 175px; transform: rotate(-90deg); transition: right .5s;" onclick="hideOrShowViewSelector()">
+                <div class="overlay"></div>
+            </button>
+            <button class="hide__show" style="bottom: 175px; left: 475px; transform: rotate(90deg); transition: left .5s;" onclick="hideOrShowAlarm()">
+                <div class="overlay"></div>
+            </button>
+            <button class="hide__show" style="bottom: 100px; left: calc(50% - 15px); transform: rotate(0deg); transition: bottom .5s;" onclick="hideOrShowPowerPanel()">
+                <div class="overlay"></div>
+            </button>
         </div>
         <script>
             /* constants -> */
